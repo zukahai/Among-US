@@ -30,9 +30,7 @@ class game {
 
         this.render();
 
-        this.amu = new amongus(this, 100, 200);
-        this.amu.xA = game_W / 2;
-        this.amu.yA = game_H / 2;
+        this.amu = new amongus(this, game_W / 2, game_H / 2);
 
         xIM2 = this.getWidth() * 2.5;
         yIM2 = game_H - this.getWidth() * 4.5;
@@ -148,19 +146,6 @@ class game {
         if (rm) {
             this.amu.xA += xCh;
             this.amu.yA += yCh;
-        }
-        if (Math.abs(this.amu.xA - this.amu.ufo_.x) > 7) {
-            if (this.amu.ufo_.x > this.amu.xA)
-                this.amu.ufo_.x -= Math.abs(this.amu.xA - this.amu.ufo_.x) / 15;
-            else
-                this.amu.ufo_.x += Math.abs(this.amu.xA - this.amu.ufo_.x) / 15;
-        }
-
-        if (Math.abs(this.amu.ufo_.y - (this.amu.yA - this.getWidth() * 2)) > 7) {
-            if (this.amu.ufo_.y > this.amu.yA - this.getWidth() * 2)
-                this.amu.ufo_.y -= Math.abs(this.amu.ufo_.y - (this.amu.yA - this.getWidth() * 2)) / 15;
-            else 
-                this.amu.ufo_.y += Math.abs(this.amu.ufo_.y - (this.amu.yA - this.getWidth() * 2)) / 15;
         }
         if (this.amu.xA < 0)
             this.amu.xA = game_W;
