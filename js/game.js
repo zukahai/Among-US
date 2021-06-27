@@ -7,8 +7,6 @@ let rm = false;
 let direction = 1;
 let xCh = 0, yCh = 0;
 
-let xAm = 0;
-let yAm = 0;
 let xUFO = 0;
 let yUFO = 0;
 var im = new Image();
@@ -17,21 +15,6 @@ var im2 = new Image();
 im2.src="images/remove2.png";
 var bg = new Image();
 bg.src="images/background.jpg";
-var ufo = new Image();
-ufo.src="images/ufo.png";
-
-
-amongus =   [[, , ],
-            [, , ],
-            [, , ],
-            [, , ],
-            [, , ],
-            [, , ]];
-for (let i = 0; i <= 4; i++)
-    for (let j = 1; j <= 2; j++) {
-    amongus[i][j] = new Image();
-    amongus[i][j].src="images/" + i + "_" + j + ".png";
-}
 
 var v = [];
 
@@ -48,11 +31,14 @@ class game {
         document.body.appendChild(this.canvas);
 
         this.render();
+        
+        this.amu = new amongus(this, 100, 200);
+        this.amu.xA = game_W / 2;
+        this.amu.yA = game_H / 2;
+
         xIM2 = this.getWidth() * 2.5;
         yIM2 = game_H - this.getWidth() * 4.5;
 
-        xAm = game_W / 2;
-        yAm = game_H / 2;
 
         this.loop();
 
@@ -162,31 +148,30 @@ class game {
         if (count % 4 == 0)
             count2++;
         if (rm) {
-            xAm += xCh;
-            yAm += yCh;
+            this.amu.xA += xCh;
+            this.amu.yA += yCh;
         }
-        if (Math.abs(xAm - xUFO) > 7) {
-            if (xUFO > xAm)
-                xUFO -= Math.abs(xAm - xUFO) / 15;
+        if (Math.abs(this.amu.xA - xUFO) > 7) {
+            if (xUFO > this.amu.xA)
+                xUFO -= Math.abs(this.amu.xA - xUFO) / 15;
             else
-                xUFO += Math.abs(xAm - xUFO) / 15;
+                xUFO += Math.abs(this.amu.xA - xUFO) / 15;
         }
 
-        if (Math.abs(yUFO - (yAm - this.getWidth() * 2)) > 7) {
-            if (yUFO > yAm - this.getWidth() * 2)
-                yUFO -= Math.abs(yUFO - (yAm - this.getWidth() * 2)) / 15;
+        if (Math.abs(yUFO - (this.amu.yA - this.getWidth() * 2)) > 7) {
+            if (yUFO > this.amu.yA - this.getWidth() * 2)
+                yUFO -= Math.abs(yUFO - (this.amu.yA - this.getWidth() * 2)) / 15;
             else 
-                yUFO += Math.abs(yUFO - (yAm - this.getWidth() * 2)) / 15;
+                yUFO += Math.abs(yUFO - (this.amu.yA - this.getWidth() * 2)) / 15;
         }
-        if (xAm < 0)
-            xAm = game_W;
-        if (xAm > game_W)
-            xAm = 0;
-        if (yAm < 0)
-            yAm = game_H;
-        if (yAm > game_H)
-            yAm = 0;
-        // console.log(rm);
+        if (this.amu.xA < 0)
+            this.amu.xA = game_W;
+        if (this.amu.xA > game_W)
+            this.amu.xA = 0;
+        if (this.amu.yA < 0)
+            this.amu.yA = game_H;
+        if (this.amu.yA > game_H)
+            this.amu.yA = 0;
     }
 
     render() {
@@ -198,28 +183,20 @@ class game {
         if (rm == false) {
             xIM2 = this.getWidth() * 2.5;
             yIM2 = game_H - this.getWidth() * 4.5;
-            this.draw();
+            // this.draw();
         }
     }
 
     draw() {
         this.clearScreen();
         this.drawEcircle();
-        this.drawAmongUS();
+        this.amu.draw();
     }
 
     drawEcircle() {
         this.context.drawImage(bg, 0, 0, game_W, game_H);
         this.context.drawImage(im, this.getWidth() * 0.5, game_H - this.getWidth() * 6.5, this.getWidth() * 6, this.getWidth() * 6);
         this.context.drawImage(im2, xIM2, yIM2, this.getWidth() * 2, this.getWidth() * 2);
-    }
-
-    drawAmongUS() {
-        if (rm)
-            this.context.drawImage(amongus[count2 % 4 + 1][direction], xAm - this.getWidth() * 1.5, yAm - this.getWidth() * 1.5, this.getWidth() * 3, this.getWidth() * 3);
-        else
-            this.context.drawImage(amongus[0][direction], xAm - this.getWidth() * 1.5, yAm - this.getWidth() * 1.5, this.getWidth() * 3, this.getWidth() * 3);
-        this.context.drawImage(ufo, xUFO - this.getWidth() * 0.9, yUFO - this.getWidth() * 0.9, this.getWidth() * 1.8, this.getWidth() * 1.8);
     }
 
     clearScreen() {
