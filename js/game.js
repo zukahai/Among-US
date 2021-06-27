@@ -10,7 +10,8 @@ var im2 = new Image();
 im2.src="images/remove2.png";
 var bg = new Image();
 bg.src="images/background.jpg";
-
+AM = [];
+N = 5;
 var v = [];
 
 class game {
@@ -28,10 +29,10 @@ class game {
         this.render();
 
         this.amu = new amongus(this, game_W / 2, game_H / 2);
-        this.amu2 = new amongus(this, game_W / 2 + this.getWidth() * 3, game_H / 2);
-        this.amu3 = new amongus(this, game_W / 2 - this.getWidth() * 3, game_H / 2);
-        this.amu2.Auto = true;
-        this.amu3.Auto = true;
+        for (let i = 0; i < N; i++) {
+            AM[i] = new amongus(this, game_W / 2 + this.getWidth() * 3, game_H / 2);
+            AM[i].Auto = true;
+        }
 
         xIM2 = this.getWidth() * 2.5;
         yIM2 = game_H - this.getWidth() * 4.5;
@@ -171,8 +172,8 @@ class game {
         this.clearScreen();
         this.drawEcircle();
         this.amu.draw();
-        this.amu2.draw();
-        this.amu3.draw();
+        for (let i = 0; i < N; i++) 
+            AM[i].draw();
     }
 
     drawEcircle() {
