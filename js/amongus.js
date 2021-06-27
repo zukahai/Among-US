@@ -1,15 +1,3 @@
-A = [[, , ],
-    [, , ],
-    [, , ],
-    [, , ],
-    [, , ],
-    [, , ]];
-for (let i = 0; i <= 4; i++)
-    for (let j = 1; j <= 2; j++) {
-    A[i][j] = new Image();
-    A[i][j].src="images/AmongUS/" + i + "_" + j + ".png";
-}
-
 class amongus{
     constructor(game, xA, yA){
         this.game = game;
@@ -19,6 +7,24 @@ class amongus{
     }
 
     init() {
+        this.time = 0;
+        this.rm = false;
+        this.direction = 1;
+        this.Auto = false;
+        this.x1 = 0;
+        this.y1 = 0;
+        this.A = [[, , ],
+            [, , ],
+            [, , ],
+            [, , ],
+            [, , ],
+            [, , ]];
+        var rd = Math.floor((Math.random() * 1000000)) % 3 + 1;
+        for (let i = 0; i <= 4; i++)
+            for (let j = 1; j <= 2; j++) {
+                this.A[i][j] = new Image();
+                this.A[i][j].src="images/AmongUS/" + rd + "/" + i + "_" + j + ".png";
+            }
         this.ufo_ = new UFO(this.game, this, this.xA, this.yA);
         this.loop();
     }
@@ -26,7 +32,25 @@ class amongus{
     loop() {
         this.update();
         this.draw();
+        if (this.Auto)
+            this.auto();
         setTimeout(() => this.loop(), 30);
+    }
+
+    auto() {
+        if (this.time -- <= 0) {
+            this.x1 = this.game.getWidth() * 1 * (Math.random() - Math.random()) / 3;
+            this.y1 = this.game.getWidth() * 1 * (Math.random() - Math.random()) / 3;
+            if (this.x1 > 0)
+                this.direction = 1;
+            else
+                this.direction = 2;
+            this.time = Math.floor(Math.random() * 50 + 20);
+        } else {
+            this.rm = true;
+            this.xA += this.x1;
+            this.yA += this.y1;
+        }
     }
 
     update() {
@@ -42,10 +66,10 @@ class amongus{
 
 
     draw() {
-        if (rm)
-            this.game.context.drawImage(A[count2 % 4 + 1][direction], this.xA - this.game.getWidth() * 1.5, this.yA - this.game.getWidth() * 1.5, this.game.getWidth() * 3, this.game.getWidth() * 3);
+        if (this.rm)
+            this.game.context.drawImage(this.A[count2 % 4 + 1][this.direction], this.xA - this.game.getWidth() * 1.5, this.yA - this.game.getWidth() * 1.5, this.game.getWidth() * 3, this.game.getWidth() * 3);
         else
-            this.game.context.drawImage(A[0][direction], this.xA - this.game.getWidth() * 1.5, this.yA - this.game.getWidth() * 1.5, this.game.getWidth() * 3, this.game.getWidth() * 3);
+            this.game.context.drawImage(this.A[0][this.direction], this.xA - this.game.getWidth() * 1.5, this.yA - this.game.getWidth() * 1.5, this.game.getWidth() * 3, this.game.getWidth() * 3);
         this.ufo_.draw();
     }
 

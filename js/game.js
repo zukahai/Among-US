@@ -3,10 +3,7 @@ let game_H = 20;
 let count = 0;
 let count2 = 0;
 let xIM2 = 0, yIM2 = 0;
-let rm = false;
-let direction = 1;
 let xCh = 0, yCh = 0;
-
 var im = new Image();
 im.src="images/remove.png";
 var im2 = new Image();
@@ -33,6 +30,8 @@ class game {
         this.amu = new amongus(this, game_W / 2, game_H / 2);
         this.amu2 = new amongus(this, game_W / 2 + this.getWidth() * 3, game_H / 2);
         this.amu3 = new amongus(this, game_W / 2 - this.getWidth() * 3, game_H / 2);
+        this.amu2.Auto = true;
+        this.amu3.Auto = true;
 
         xIM2 = this.getWidth() * 2.5;
         yIM2 = game_H - this.getWidth() * 4.5;
@@ -63,14 +62,14 @@ class game {
                 y = (R * YY) / HH + Yc;
             }
             if (x < Xc)
-                direction = 2;
+                this.amu.direction = 2;
             else 
-                direction = 1;
+                this.amu.direction = 1;
 
-            xCh = (x - Xc) / 10;
-            yCh = (y - Yc) / 10;
+            xCh = (x - Xc) / 7;
+            yCh = (y - Yc) / 7;
 
-            if (rm == true) {
+            if (this.amu.rm == true) {
                 xIM2 = x - this.getWidth();
                 yIM2 = y - this.getWidth();
                 this.draw();
@@ -83,7 +82,7 @@ class game {
             var Xc = this.getWidth() * 3.5;
             var Yc = game_H - this.getWidth() * 3.5;
             if ((Xc - x) * (Xc - x) + (Yc - y) * (Yc - y) <= 9 * this.getWidth() * this.getWidth()) {
-                rm = true;
+                this.amu.rm = true;
                 xIM2 = x - this.getWidth();
                 yIM2 = y - this.getWidth();
                 this.draw();
@@ -93,7 +92,7 @@ class game {
         document.addEventListener("touchend", evt => {
             xIM2 = this.getWidth() * 2.5;
             yIM2 = game_H - this.getWidth() * 4.5;
-            rm = false;
+            this.amu.rm = false;
             this.draw();
         })
     }
@@ -108,32 +107,32 @@ class game {
 
     listenKeyboard() {
         document.addEventListener("keydown", key => {
-            rm = true;
+            this.amu.rm = true;
             // var audio = new Audio('A.mp3');
             // console.log(audio.setAttribute(4));
             // audio.play();
             switch(key.keyCode) {
                 case 37:
                     xCh = -this.getWidth() / 5;
-                    direction = 2;
+                    this.amu.direction = 2;
                     break;
                 case 38:
                     yCh = -this.getWidth() / 5;
                     break;
                 case 39:
                     xCh = this.getWidth() / 5;
-                    direction = 1;
+                    this.amu.direction = 1;
                     break;
                 case 40:
                     yCh = this.getWidth() / 5;
                     break;
                 default:
-                    rm = false;
+                    this.amu.rm = false;
             }
         })
 
         document.addEventListener("keyup", key => {
-            rm = false;
+            this.amu.rm = false;
             xCh = 0;
             yCh = 0;
         })
@@ -150,13 +149,9 @@ class game {
         count++;
         if (count % 4 == 0)
             count2++;
-        if (rm) {
+        if (this.amu.rm) {
             this.amu.xA += xCh;
             this.amu.yA += yCh;
-            this.amu2.xA += xCh;
-            this.amu2.yA += yCh;
-            this.amu3.xA += xCh;
-            this.amu3.yA += yCh;
         }
     }
 
@@ -166,7 +161,7 @@ class game {
         game_W = this.canvas.width;
         game_H = this.canvas.height;
 
-        if (rm == false) {
+        if (this.amu != null && this.amu.rm == false) {
             xIM2 = this.getWidth() * 2.5;
             yIM2 = game_H - this.getWidth() * 4.5;
         }
