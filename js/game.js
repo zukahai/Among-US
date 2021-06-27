@@ -156,17 +156,25 @@ class game {
         }
         if (Math.abs(xAm - xUFO) > 7) {
             if (xUFO > xAm)
-                xUFO -= 4;
+                xUFO -= Math.abs(xAm - xUFO) / 15;
             else
-                xUFO += 4;
+                xUFO += Math.abs(xAm - xUFO) / 15;
         }
 
         if (Math.abs(yUFO - (yAm - this.getWidth() * 2)) > 7) {
             if (yUFO > yAm - this.getWidth() * 2)
-                yUFO -= 4;
+                yUFO -= Math.abs(yUFO - (yAm - this.getWidth() * 2)) / 15;
             else 
-                yUFO += 4;
+                yUFO += Math.abs(yUFO - (yAm - this.getWidth() * 2)) / 15;
         }
+        if (xAm < 0)
+            xAm = game_W;
+        if (xAm > game_W)
+            xAm = 0;
+        if (yAm < 0)
+            yAm = game_H;
+        if (yAm > game_H)
+            yAm = 0;
     }
 
     render() {
