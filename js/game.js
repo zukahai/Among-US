@@ -5,6 +5,7 @@ let count2 = 0;
 let xIM2 = 0, yIM2 = 0;
 let rm = false;
 let direction = 1;
+let xCh = 0, yCh = 0;
 
 let xAm = 0;
 let yAm = 0;
@@ -46,6 +47,9 @@ class game {
         xIM2 = this.getWidth() * 2.5;
         yIM2 = game_H - this.getWidth() * 4.5;
 
+        xAm = game_W / 2;
+        yAm = game_H / 2;
+
         this.loop();
 
         this.listenKeyboard();
@@ -74,6 +78,9 @@ class game {
                 direction = 2;
             else 
                 direction = 1;
+
+            xCh = (x - Xc) / 10;
+            yCh = (y - Yc) / 10;
 
             if (rm == true) {
                 xIM2 = x - this.getWidth();
@@ -139,7 +146,10 @@ class game {
         count++;
         if (count % 4 == 0)
             count2++;
-        xAm += 15;
+        if (rm) {
+            xAm += xCh;
+            yAm += yCh;
+        }
     }
 
     render() {
@@ -147,6 +157,12 @@ class game {
         this.canvas.height = document.documentElement.clientHeight;
         game_W = this.canvas.width;
         game_H = this.canvas.height;
+
+        if (rm == false) {
+            xIM2 = this.getWidth() * 2.5;
+            yIM2 = game_H - this.getWidth() * 4.5;
+            this.draw();
+        }
     }
 
     draw() {
@@ -162,7 +178,10 @@ class game {
     }
 
     drawAmongUS() {
-        this.context.drawImage(amongus[count2 % 5][direction], xAm, yAm, 200, 200);
+        if (rm)
+            this.context.drawImage(amongus[count2 % 4 + 1][direction], xAm, yAm, this.getWidth() * 3, this.getWidth() * 3.5);
+        else
+            this.context.drawImage(amongus[0][direction], xAm, yAm, this.getWidth() * 3, this.getWidth() * 3.5);
     }
 
     clearScreen() {
