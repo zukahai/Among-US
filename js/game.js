@@ -11,7 +11,7 @@ im2.src="images/remove2.png";
 var bg = new Image();
 bg.src="images/background.jpg";
 AM = [];
-N = 5;
+N = 3;
 var v = [];
 
 class game {
