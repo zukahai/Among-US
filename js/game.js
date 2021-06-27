@@ -31,6 +31,8 @@ class game {
         this.render();
 
         this.amu = new amongus(this, game_W / 2, game_H / 2);
+        this.amu2 = new amongus(this, game_W / 2 + this.getWidth() * 3, game_H / 2);
+        this.amu3 = new amongus(this, game_W / 2 - this.getWidth() * 3, game_H / 2);
 
         xIM2 = this.getWidth() * 2.5;
         yIM2 = game_H - this.getWidth() * 4.5;
@@ -107,6 +109,9 @@ class game {
     listenKeyboard() {
         document.addEventListener("keydown", key => {
             rm = true;
+            // var audio = new Audio('A.mp3');
+            // console.log(audio.setAttribute(4));
+            // audio.play();
             switch(key.keyCode) {
                 case 37:
                     xCh = -this.getWidth() / 5;
@@ -122,6 +127,8 @@ class game {
                 case 40:
                     yCh = this.getWidth() / 5;
                     break;
+                default:
+                    rm = false;
             }
         })
 
@@ -146,15 +153,11 @@ class game {
         if (rm) {
             this.amu.xA += xCh;
             this.amu.yA += yCh;
+            this.amu2.xA += xCh;
+            this.amu2.yA += yCh;
+            this.amu3.xA += xCh;
+            this.amu3.yA += yCh;
         }
-        if (this.amu.xA < 0)
-            this.amu.xA = game_W;
-        if (this.amu.xA > game_W)
-            this.amu.xA = 0;
-        if (this.amu.yA < 0)
-            this.amu.yA = game_H;
-        if (this.amu.yA > game_H)
-            this.amu.yA = 0;
     }
 
     render() {
@@ -166,7 +169,6 @@ class game {
         if (rm == false) {
             xIM2 = this.getWidth() * 2.5;
             yIM2 = game_H - this.getWidth() * 4.5;
-            // this.draw();
         }
     }
 
@@ -174,6 +176,8 @@ class game {
         this.clearScreen();
         this.drawEcircle();
         this.amu.draw();
+        this.amu2.draw();
+        this.amu3.draw();
     }
 
     drawEcircle() {

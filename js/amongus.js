@@ -20,6 +20,24 @@ class amongus{
 
     init() {
         this.ufo_ = new UFO(this.game, this, this.xA, this.yA);
+        this.loop();
+    }
+
+    loop() {
+        this.update();
+        this.draw();
+        setTimeout(() => this.loop(), 30);
+    }
+
+    update() {
+        if (this.xA < 0)
+            this.xA = game_W;
+        if (this.xA > game_W)
+            this.xA = 0;
+        if (this.yA < 0)
+            this.yA = game_H;
+        if (this.yA > game_H)
+            this.yA = 0;
     }
 
 
