@@ -179,9 +179,9 @@ class game {
 
     drawAmongUS() {
         if (rm)
-            this.context.drawImage(amongus[count2 % 4 + 1][direction], xAm, yAm, this.getWidth() * 3, this.getWidth() * 3.5);
+            this.context.drawImage(amongus[count2 % 4 + 1][direction], xAm, yAm, this.getWidth() * 3, this.getWidth() * 3);
         else
-            this.context.drawImage(amongus[0][direction], xAm, yAm, this.getWidth() * 3, this.getWidth() * 3.5);
+            this.context.drawImage(amongus[0][direction], xAm, yAm, this.getWidth() * 3, this.getWidth() * 3);
     }
 
     clearScreen() {
