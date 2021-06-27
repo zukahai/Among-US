@@ -127,18 +127,18 @@ class game {
             rm = true;
             switch(key.keyCode) {
                 case 37:
-                    xCh = -this.getWidth() / 3;
+                    xCh = -this.getWidth() / 5;
                     direction = 2;
                     break;
                 case 38:
-                    yCh = -this.getWidth() / 3;
+                    yCh = -this.getWidth() / 5;
                     break;
                 case 39:
-                    xCh = this.getWidth() / 3;
+                    xCh = this.getWidth() / 5;
                     direction = 1;
                     break;
                 case 40:
-                    yCh = this.getWidth() / 3;
+                    yCh = this.getWidth() / 5;
                     break;
             }
         })
