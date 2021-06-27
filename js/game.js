@@ -124,18 +124,29 @@ class game {
 
     listenKeyboard() {
         document.addEventListener("keydown", key => {
-            if (!ch)
-                return;
+            rm = true;
             switch(key.keyCode) {
                 case 37:
+                    xCh = -this.getWidth() / 3;
+                    direction = 2;
                     break;
                 case 38:
+                    yCh = -this.getWidth() / 3;
                     break;
                 case 39:
+                    xCh = this.getWidth() / 3;
+                    direction = 1;
                     break;
                 case 40:
+                    yCh = this.getWidth() / 3;
                     break;
             }
+        })
+
+        document.addEventListener("keyup", key => {
+            rm = false;
+            xCh = 0;
+            yCh = 0;
         })
     }
 
@@ -175,6 +186,7 @@ class game {
             yAm = game_H;
         if (yAm > game_H)
             yAm = 0;
+        // console.log(rm);
     }
 
     render() {
