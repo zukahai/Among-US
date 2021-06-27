@@ -7,7 +7,7 @@ A = [[, , ],
 for (let i = 0; i <= 4; i++)
     for (let j = 1; j <= 2; j++) {
     A[i][j] = new Image();
-    A[i][j].src="images/" + i + "_" + j + ".png";
+    A[i][j].src="images/AmongUS/" + i + "_" + j + ".png";
 }
 
 class amongus{

@@ -1,16 +1,16 @@
-var ufo = new Image();
-ufo.src="images/ufo.png";
-
 class UFO {
     constructor(game, amongus, x, y) {
         this.game = game;
         this.amongus = amongus;
         this.x = x;
         this.y = y;
+        this.ufo = new Image();
         this.init();
     }
 
     init() {
+        var rd = Math.floor((Math.random() * 1000000)) % 9;
+        this.ufo.src="images/Pet/pet" + rd + ".png";
         this.loop();
     }
 
@@ -37,6 +37,6 @@ class UFO {
     }
 
     draw() {
-        this.game.context.drawImage(ufo, this.x - this.game.getWidth() * 0.9, this.y - this.game.getWidth() * 0.9, this.game.getWidth() * 1.8, this.game.getWidth() * 1.8);
+        this.game.context.drawImage(this.ufo, this.x - this.game.getWidth() * 0.9, this.y - this.game.getWidth() * 0.9, this.game.getWidth() * 1.8, this.game.getWidth() * 1.8);
     }
 }
