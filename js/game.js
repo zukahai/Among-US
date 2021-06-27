@@ -1,14 +1,32 @@
 let game_W = 20;
 let game_H = 20;
-
+let count = 0;
+let count2 = 0;
 let xIM2 = 0, yIM2 = 0;
 let rm = false;
+let direction = 1;
+
+let xAm = 0;
+let yAm = 0;
 var im = new Image();
 im.src="images/remove.png";
 var im2 = new Image();
 im2.src="images/remove2.png";
 var bg = new Image();
 bg.src="images/background.jpg";
+
+
+amongus =   [[, , ],
+            [, , ],
+            [, , ],
+            [, , ],
+            [, , ],
+            [, , ]];
+for (let i = 0; i <= 4; i++)
+    for (let j = 1; j <= 2; j++) {
+    amongus[i][j] = new Image();
+    amongus[i][j].src="images/" + i + "_" + j + ".png";
+}
 
 var v = [];
 
@@ -52,6 +70,11 @@ class game {
                 x = (R * XX) / HH + Xc;
                 y = (R * YY) / HH + Yc;
             }
+            if (x < Xc)
+                direction = 2;
+            else 
+                direction = 1;
+
             if (rm == true) {
                 xIM2 = x - this.getWidth();
                 yIM2 = y - this.getWidth();
@@ -108,11 +131,15 @@ class game {
     loop() {
         this.update();
         this.draw();
-        setTimeout(() => this.loop(), 100);
+        setTimeout(() => this.loop(), 20);
     }
 
     update() {
         this.render();
+        count++;
+        if (count % 4 == 0)
+            count2++;
+        xAm += 15;
     }
 
     render() {
@@ -125,12 +152,17 @@ class game {
     draw() {
         this.clearScreen();
         this.drawEcircle();
+        this.drawAmongUS();
     }
 
     drawEcircle() {
         this.context.drawImage(bg, 0, 0, game_W, game_H);
         this.context.drawImage(im, this.getWidth() * 0.5, game_H - this.getWidth() * 6.5, this.getWidth() * 6, this.getWidth() * 6);
         this.context.drawImage(im2, xIM2, yIM2, this.getWidth() * 2, this.getWidth() * 2);
+    }
+
+    drawAmongUS() {
+        this.context.drawImage(amongus[count2 % 5][direction], xAm, yAm, 200, 200);
     }
 
     clearScreen() {
