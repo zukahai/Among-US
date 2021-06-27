@@ -9,12 +9,16 @@ let xCh = 0, yCh = 0;
 
 let xAm = 0;
 let yAm = 0;
+let xUFO = 0;
+let yUFO = 0;
 var im = new Image();
 im.src="images/remove.png";
 var im2 = new Image();
 im2.src="images/remove2.png";
 var bg = new Image();
 bg.src="images/background.jpg";
+var ufo = new Image();
+ufo.src="images/ufo.png";
 
 
 amongus =   [[, , ],
@@ -150,6 +154,19 @@ class game {
             xAm += xCh;
             yAm += yCh;
         }
+        if (Math.abs(xAm - xUFO) > 7) {
+            if (xUFO > xAm)
+                xUFO -= 4;
+            else
+                xUFO += 4;
+        }
+
+        if (Math.abs(yUFO - (yAm - this.getWidth() * 2)) > 7) {
+            if (yUFO > yAm - this.getWidth() * 2)
+                yUFO -= 4;
+            else 
+                yUFO += 4;
+        }
     }
 
     render() {
@@ -179,9 +196,10 @@ class game {
 
     drawAmongUS() {
         if (rm)
-            this.context.drawImage(amongus[count2 % 4 + 1][direction], xAm, yAm, this.getWidth() * 3, this.getWidth() * 3);
+            this.context.drawImage(amongus[count2 % 4 + 1][direction], xAm - this.getWidth() * 1.5, yAm - this.getWidth() * 1.5, this.getWidth() * 3, this.getWidth() * 3);
         else
-            this.context.drawImage(amongus[0][direction], xAm, yAm, this.getWidth() * 3, this.getWidth() * 3);
+            this.context.drawImage(amongus[0][direction], xAm - this.getWidth() * 1.5, yAm - this.getWidth() * 1.5, this.getWidth() * 3, this.getWidth() * 3);
+        this.context.drawImage(ufo, xUFO - this.getWidth() * 0.9, yUFO - this.getWidth() * 0.9, this.getWidth() * 1.8, this.getWidth() * 1.8);
     }
 
     clearScreen() {
