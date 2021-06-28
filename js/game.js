@@ -170,8 +170,8 @@ class game {
     }
 
     draw() {
-        // this.clearScreen();
-        console.log(game_W,' ', game_H);
+        this.clearScreen();
+        // console.log(game_W,' ', game_H);
         if (game_W < 1322 || this.amu.rm)
             this.drawEcircle();
         for (let i = 0; i < N; i++) 
