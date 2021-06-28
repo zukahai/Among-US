@@ -109,9 +109,6 @@ class game {
     listenKeyboard() {
         document.addEventListener("keydown", key => {
             this.amu.rm = true;
-            // var audio = new Audio('A.mp3');
-            // console.log(audio.setAttribute(4));
-            // audio.play();
             switch(key.keyCode) {
                 case 37:
                     xCh = -this.getWidth() / 5;
@@ -172,9 +169,9 @@ class game {
         this.clearScreen();
         if (game_W < 1280 || this.amu.rm)
             this.drawEcircle();
-        this.amu.draw();
         for (let i = 0; i < N; i++) 
             AM[i].draw();
+        this.amu.draw();
     }
 
     drawEcircle() {

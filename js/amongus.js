@@ -31,7 +31,7 @@ class amongus{
 
     loop() {
         this.update();
-        this.draw();
+        // this.draw();
         if (this.Auto)
             this.auto();
         setTimeout(() => this.loop(), 30);

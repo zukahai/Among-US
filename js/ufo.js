@@ -16,7 +16,7 @@ class UFO {
 
     loop() {
         this.update();
-        this.draw();
+        // this.draw();
         setTimeout(() => this.loop(), 30);
     }
 
