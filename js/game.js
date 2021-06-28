@@ -11,7 +11,7 @@ im2.src="images/moveButton2.png";
 var bg = new Image();
 bg.src="images/background.png";
 AM = [];
-N = 2;
+N = 3;
 var v = [];
 
 class game {

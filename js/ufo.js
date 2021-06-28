@@ -9,8 +9,8 @@ class UFO {
     }
 
     init() {
-        var rd = Math.floor((Math.random() * 1000000)) % 9;
-        this.ufo.src="images/Pet/pet" + rd + ".png";
+        var rd = Math.floor((Math.random() * 1000000)) % 13;
+        this.ufo.src="images/Pet/pet" + 13 + ".png";
         this.loop();
     }
 
@@ -37,6 +37,6 @@ class UFO {
     }
 
     draw() {
-        this.game.context.drawImage(this.ufo, this.x - this.game.getWidth() * 0.9, this.y - this.game.getWidth() * 0.9, this.game.getWidth() * 1.8, this.game.getWidth() * 1.8);
+        this.game.context.drawImage(this.ufo, this.x - this.game.getWidth() * 0.7, this.y - this.game.getWidth() * 0.7, this.game.getWidth() * 1.8, this.game.getWidth() * 1.8);
     }
 }
