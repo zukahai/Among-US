@@ -37,6 +37,6 @@ class UFO {
     }
 
     draw() {
-        this.game.context.drawImage(this.ufo, this.x - this.game.getWidth() * 0.7, this.y - this.game.getWidth() * 0.7, this.game.getWidth() * 1.8, this.game.getWidth() * 1.8);
+        this.game.context.drawImage(this.ufo, this.x - this.game.getWidth() * 0.75, this.y - this.game.getWidth() * 0.75, this.game.getWidth() * 1.5, this.game.getWidth() * 1.5);
     }
 }
