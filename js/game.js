@@ -47,11 +47,10 @@ class game {
 
     listenTouch() {
         document.addEventListener("touchmove", evt => {
-            if (evt) evt = window.event;
             console.log(evt.touches.length);
-            this.amu.name = evt.touches.length;
-            var x = evt.touches[0].pageX;
-            var y = evt.touches[0].pageY;
+            this.amu.name = "Hello";
+            var x = evt.touches[evt.touches.length - 1].pageX;
+            var y = evt.touches[evt.touches.length - 1].pageY;
 
             var Xc = this.getWidth() * 3.5;
             var Yc = game_H - this.getWidth() * 3.5;
