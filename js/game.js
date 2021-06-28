@@ -12,6 +12,7 @@ var bg = new Image();
 bg.src="images/background.png";
 AM = [];
 N = 3;
+let test = 0;
 var v = [];
 let iden = -111;
 
@@ -48,8 +49,7 @@ class game {
 
     listenTouch() {
         document.addEventListener("touchmove", evt => {
-            console.log(evt.touches.length);
-            this.amu.name = "@@@@";
+            this.amu.name = test;
             for (let i = 0; i < evt.touches.length; i++)
                 if (evt.touches[i].identifier == iden) {
                     var x = evt.touches[i].pageX;
@@ -84,6 +84,7 @@ class game {
         })
 
         document.addEventListener("touchstart", evt => {
+            test++;
             var x = evt.touches[evt.touches.length - 1].pageX;
             var y = evt.touches[evt.touches.length - 1].pageY;
             var Xc = this.getWidth() * 3.5;
@@ -104,7 +105,12 @@ class game {
             xIM2 = this.getWidth() * 2.5;
             yIM2 = game_H - this.getWidth() * 4.5;
             // this.amu.rm = false;
-            iden = -111;
+            let check = true;
+            for (let i = 0; i < evt.touches.length; i++)
+                if (evt.touches[i].identifier == iden)
+                    check = false;
+            if (check)
+                this.amu.rm = false;
             this.draw();
         })
     }
