@@ -171,7 +171,8 @@ class game {
 
     draw() {
         this.clearScreen();
-        if (game_W * game_H < 600000|| this.amu.rm)
+        // console.log(game_W,' ', game_H);
+        if (game_W * game_H < 1200000|| this.amu.rm)
             this.drawEcircle();
         for (let i = 0; i < N; i++) 
             AM[i].draw();
@@ -189,8 +190,6 @@ class game {
             this.context.drawImage(bg, 0, (bg.height - game_H * (bg.width / game_W)) / 2, bg.width, game_H * (bg.width / game_W), 0, 0, game_W, game_H);
         else
         this.context.drawImage(bg, (bg.width - game_W * (bg.height / game_H)) / 2, 0, game_W * (bg.height / game_H), bg.height, 0, 0, game_W, game_H);
-        // this.context.fillStyle = "#000000";
-        // this.context.fillRect(0, 0, game_W, game_H);
     }
 
     getWidth() {
