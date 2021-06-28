@@ -9,9 +9,9 @@ im.src="images/remove.png";
 var im2 = new Image();
 im2.src="images/remove2.png";
 var bg = new Image();
-bg.src="images/background.jpg";
+bg.src="images/background.png";
 AM = [];
-N = 3;
+N = 2;
 var v = [];
 
 class game {
@@ -170,22 +170,23 @@ class game {
 
     draw() {
         this.clearScreen();
-        this.drawEcircle();
+        if (game_W < 1280 || this.amu.rm)
+            this.drawEcircle();
         this.amu.draw();
         for (let i = 0; i < N; i++) 
             AM[i].draw();
     }
 
     drawEcircle() {
-        this.context.drawImage(bg, 0, 0, game_W, game_H);
         this.context.drawImage(im, this.getWidth() * 0.5, game_H - this.getWidth() * 6.5, this.getWidth() * 6, this.getWidth() * 6);
         this.context.drawImage(im2, xIM2, yIM2, this.getWidth() * 2, this.getWidth() * 2);
     }
 
     clearScreen() {
         this.context.clearRect(0, 0, game_W, game_H);
-        this.context.fillStyle = "#000000";
-        this.context.fillRect(0, 0, game_W, game_H);
+        this.context.drawImage(bg, 0, 0, game_W, game_H);
+        // this.context.fillStyle = "#000000";
+        // this.context.fillRect(0, 0, game_W, game_H);
     }
 
     getWidth() {
