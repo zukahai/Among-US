@@ -110,18 +110,22 @@ class game {
         document.addEventListener("keydown", key => {
             this.amu.rm2 = true;
             switch(key.keyCode) {
+                case 65:
                 case 37:
                     xCh = -this.getWidth() / 5;
                     this.amu.direction = 2;
                     break;
                 case 38:
+                case 87:
                     yCh = -this.getWidth() / 5;
                     break;
                 case 39:
+                case 68:
                     xCh = this.getWidth() / 5;
                     this.amu.direction = 1;
                     break;
                 case 40:
+                case 83:
                     yCh = this.getWidth() / 5;
                     break;
                 default:
@@ -167,7 +171,7 @@ class game {
 
     draw() {
         this.clearScreen();
-        if (game_W * game_H < 700000|| this.amu.rm)
+        if (game_W * game_H < 600000|| this.amu.rm)
             this.drawEcircle();
         for (let i = 0; i < N; i++) 
             AM[i].draw();
