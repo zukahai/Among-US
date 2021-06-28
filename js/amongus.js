@@ -10,6 +10,7 @@ class amongus{
     init() {
         this.time = 0;
         this.rm = false;
+        this.rm2 = false;
         this.direction = 1;
         this.Auto = false;
         this.x1 = 0;
@@ -71,7 +72,7 @@ class amongus{
         this.game.context.font = (Math.floor(this.game.getWidth() / 2)) + 'px Calibri';
         this.game.context.fillText(this.name, this.xA - 1.5 * Math.floor(this.game.getWidth() / 2), this.yA - this.game.getWidth() * 1.5);
 
-        if (this.rm)
+        if (this.rm || this.rm2)
             this.game.context.drawImage(this.A[count2 % 4 + 1][this.direction], this.xA - this.game.getWidth() * 1.5, this.yA - this.game.getWidth() * 1.5, this.game.getWidth() * 3, this.game.getWidth() * 3);
         else
             this.game.context.drawImage(this.A[0][this.direction], this.xA - this.game.getWidth() * 1.5, this.yA - this.game.getWidth() * 1.5, this.game.getWidth() * 3, this.game.getWidth() * 3);

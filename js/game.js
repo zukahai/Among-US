@@ -108,7 +108,7 @@ class game {
 
     listenKeyboard() {
         document.addEventListener("keydown", key => {
-            this.amu.rm = true;
+            this.amu.rm2 = true;
             switch(key.keyCode) {
                 case 37:
                     xCh = -this.getWidth() / 5;
@@ -125,12 +125,12 @@ class game {
                     yCh = this.getWidth() / 5;
                     break;
                 default:
-                    this.amu.rm = false;
+                    this.amu.rm2 = false;
             }
         })
 
         document.addEventListener("keyup", key => {
-            this.amu.rm = false;
+            this.amu.rm2 = false;
             xCh = 0;
             yCh = 0;
         })
@@ -147,7 +147,7 @@ class game {
         count++;
         if (count % 4 == 0)
             count2++;
-        if (this.amu.rm) {
+        if (this.amu.rm || this.amu.rm2) {
             this.amu.xA += xCh;
             this.amu.yA += yCh;
         }
@@ -167,7 +167,7 @@ class game {
 
     draw() {
         this.clearScreen();
-        if (game_W < 1280 || this.amu.rm)
+        if (game_W * game_H < 700000|| this.amu.rm)
             this.drawEcircle();
         for (let i = 0; i < N; i++) 
             AM[i].draw();
