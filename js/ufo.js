@@ -10,7 +10,7 @@ class UFO {
 
     init() {
         var rd = Math.floor((Math.random() * 1000000)) % 13;
-        this.ufo.src="images/Pet/pet" + 13 + ".png";
+        this.ufo.src="images/Pet/pet" + rd + ".png";
         this.loop();
     }
 
