@@ -1,8 +1,9 @@
 class amongus{
-    constructor(game, xA, yA){
+    constructor(game, xA, yA, name){
         this.game = game;
         this.xA = xA;
         this.yA = yA;
+        this.name = name;
         this.init();
     }
 
@@ -66,6 +67,10 @@ class amongus{
 
 
     draw() {
+        this.game.context.fillStyle = "#33FFFF";
+        this.game.context.font = (Math.floor(this.game.getWidth() / 2)) + 'px Calibri';
+        this.game.context.fillText(this.name, this.xA - 1.5 * Math.floor(this.game.getWidth() / 2), this.yA - this.game.getWidth() * 1.5);
+
         if (this.rm)
             this.game.context.drawImage(this.A[count2 % 4 + 1][this.direction], this.xA - this.game.getWidth() * 1.5, this.yA - this.game.getWidth() * 1.5, this.game.getWidth() * 3, this.game.getWidth() * 3);
         else
