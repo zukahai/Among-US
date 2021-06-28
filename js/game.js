@@ -170,9 +170,9 @@ class game {
     }
 
     draw() {
-        this.clearScreen();
-        // console.log(game_W,' ', game_H);
-        if (game_W * game_H < 1200000|| this.amu.rm)
+        // this.clearScreen();
+        console.log(game_W,' ', game_H);
+        if (game_W < 1322 || this.amu.rm)
             this.drawEcircle();
         for (let i = 0; i < N; i++) 
             AM[i].draw();
