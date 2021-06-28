@@ -13,6 +13,7 @@ bg.src="images/background.png";
 AM = [];
 N = 3;
 var v = [];
+let iden = -111;
 
 class game {
     constructor() {
@@ -48,53 +49,62 @@ class game {
     listenTouch() {
         document.addEventListener("touchmove", evt => {
             console.log(evt.touches.length);
-            this.amu.name = "Hello";
-            var x = evt.touches[evt.touches.length - 1].pageX;
-            var y = evt.touches[evt.touches.length - 1].pageY;
+            this.amu.name = "@@@@";
+            for (let i = 0; i < evt.touches.length; i++)
+                if (evt.touches[i].identifier == iden) {
+                    var x = evt.touches[i].pageX;
+                    var y = evt.touches[i].pageY;
 
-            var Xc = this.getWidth() * 3.5;
-            var Yc = game_H - this.getWidth() * 3.5;
+                    var Xc = this.getWidth() * 3.5;
+                    var Yc = game_H - this.getWidth() * 3.5;
 
-            if ((Xc - x) * (Xc - x) + (Yc - y) * (Yc - y) > 4 * this.getWidth() * this.getWidth()) {
-                var XX = x - Xc;
-                var YY = y - Yc;
-                var HH = Math.sqrt(XX * XX + YY * YY);
-                var R = 2 * this.getWidth();
-                x = (R * XX) / HH + Xc;
-                y = (R * YY) / HH + Yc;
-            }
-            if (x < Xc)
-                this.amu.direction = 2;
-            else 
-                this.amu.direction = 1;
+                    if ((Xc - x) * (Xc - x) + (Yc - y) * (Yc - y) > 4 * this.getWidth() * this.getWidth()) {
+                        var XX = x - Xc;
+                        var YY = y - Yc;
+                        var HH = Math.sqrt(XX * XX + YY * YY);
+                        var R = 2 * this.getWidth();
+                        x = (R * XX) / HH + Xc;
+                        y = (R * YY) / HH + Yc;
+                    }
+                    if (x < Xc)
+                        this.amu.direction = 2;
+                    else 
+                        this.amu.direction = 1;
 
-            xCh = (x - Xc) / 7;
-            yCh = (y - Yc) / 7;
+                    xCh = (x - Xc) / 7;
+                    yCh = (y - Yc) / 7;
 
-            if (this.amu.rm == true) {
-                xIM2 = x - this.getWidth();
-                yIM2 = y - this.getWidth();
-                this.draw();
-            }
+                    if (this.amu.rm == true) {
+                        xIM2 = x - this.getWidth();
+                        yIM2 = y - this.getWidth();
+                        this.draw();
+                    }
+                }
+            
         })
 
         document.addEventListener("touchstart", evt => {
-            var x = evt.touches[0].pageX;
-            var y = evt.touches[0].pageY;
+            var x = evt.touches[evt.touches.length - 1].pageX;
+            var y = evt.touches[evt.touches.length - 1].pageY;
             var Xc = this.getWidth() * 3.5;
             var Yc = game_H - this.getWidth() * 3.5;
             if ((Xc - x) * (Xc - x) + (Yc - y) * (Yc - y) <= 9 * this.getWidth() * this.getWidth()) {
-                this.amu.rm = true;
-                xIM2 = x - this.getWidth();
-                yIM2 = y - this.getWidth();
-                this.draw();
+                if (!this.amu.rm) {
+                    this.amu.rm = true;
+                    iden = evt.touches[evt.touches.length - 1].identifier;
+                    xIM2 = x - this.getWidth();
+                    yIM2 = y - this.getWidth();
+                    this.draw();
+                }
+                
             }
         })
 
         document.addEventListener("touchend", evt => {
             xIM2 = this.getWidth() * 2.5;
             yIM2 = game_H - this.getWidth() * 4.5;
-            this.amu.rm = false;
+            // this.amu.rm = false;
+            iden = -111;
             this.draw();
         })
     }
