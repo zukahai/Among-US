@@ -19,7 +19,7 @@ let killcooldown = 12;
 
 
 AM = [];
-N = 4;
+N = 10;
 var v = [];
 let iden = -111;
 let idenKill = -222;
@@ -260,10 +260,8 @@ class game {
 
     draw() {
         this.clearScreen();
-        // console.log(game_W,' ', game_H);
         if (game_W < 1322 || this.amu.rm)
             this.drawEcircle();
-        // this.amu.draw();
         for (let i = 0; i < N; i++) 
             AM[i].draw();
         this.drawKill();
@@ -280,12 +278,15 @@ class game {
     }
 
     checkKill() {
+        var m = 1000000000;
+        var index = -1;
         for (var i = 0; i < N; i++) {
-            if (AM[i].alive && Math.sqrt(Math.abs(this.amu.xA - AM[i].xA) * Math.abs(this.amu.xA - AM[i].xA) + Math.abs(this.amu.yA - AM[i].yA) * Math.abs(this.amu.yA - AM[i].yA)) <= 6 * this.getWidth()) {
-                return i;
+            if (AM[i].alive && Math.sqrt(Math.abs(this.amu.xA - AM[i].xA) * Math.abs(this.amu.xA - AM[i].xA) + Math.abs(this.amu.yA - AM[i].yA) * Math.abs(this.amu.yA - AM[i].yA)) <= m) {
+                m = Math.sqrt(Math.abs(this.amu.xA - AM[i].xA) * Math.abs(this.amu.xA - AM[i].xA) + Math.abs(this.amu.yA - AM[i].yA) * Math.abs(this.amu.yA - AM[i].yA));
+                index = i;
             }
         }       
-        return -1;
+        return index;
     }
 
     drawKill() {
