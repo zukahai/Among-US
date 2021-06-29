@@ -126,7 +126,7 @@ class game {
             }
 
             check = true;
-            if (idenKill == -222)
+            if (idenKill == -222 || killcooldown > 0)
                 check = false;
             for (let i = 0; i < evt.touches.length; i++)
                 if (evt.touches[i].identifier == idenKill)
