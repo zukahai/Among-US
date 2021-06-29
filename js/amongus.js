@@ -72,7 +72,7 @@ class amongus{
 
 
     draw() {
-        this.game.context.fillStyle = "#33FFFF";
+        this.game.context.fillStyle = "#0000FF";
         this.game.context.font = (Math.floor(this.game.getWidth() / 2)) + 'px Calibri';
         this.game.context.fillText(this.name, this.xA - 1.5 * Math.floor(this.game.getWidth() / 2), this.yA - this.game.getWidth() * 1.5);
         if (this.alive) {

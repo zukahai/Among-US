@@ -18,8 +18,7 @@ kill[1].src="images/kill/kill1.png";
 
 
 AM = [];
-N = 10;
-let test = 0;
+N = 11;
 var v = [];
 let iden = -111;
 let idenKill = -222;
@@ -50,14 +49,13 @@ class game {
 
         this.loop();
 
-        this.listenKeyboard();
         this.listenMouse();
         this.listenTouch();
+        this.listenKeyboard();
     }
 
     listenTouch() {
         document.addEventListener("touchmove", evt => {
-            this.amu.name = test;
             for (let i = 0; i < evt.touches.length; i++)
                 if (evt.touches[i].identifier == iden) {
                     var x = evt.touches[i].pageX;
@@ -92,7 +90,6 @@ class game {
         })
 
         document.addEventListener("touchstart", evt => {
-            test++;
             var x = evt.touches[evt.touches.length - 1].pageX;
             var y = evt.touches[evt.touches.length - 1].pageY;
             var Xc = this.getWidth() * 3.5;
@@ -107,18 +104,11 @@ class game {
                     this.draw();
                 }
             }
-
             var Xk = game_W - this.getWidth() * 2.5;
             var Yk = game_H - this.getWidth() * 2.5;
             if ((Xk - x) * (Xk - x) + (Yk - y) * (Yk - y) <= 6 * this.getWidth() * this.getWidth()) {
                 console.log("Kill");
                 idenKill = evt.touches[evt.touches.length - 1].identifier;
-                var k = this.checkKill();
-                if (k != -1) {
-                    this.amu.xA = AM[k].xA;
-                    this.amu.yA = AM[k].yA;
-                    AM[k].alive = false;
-                }
             }
         })
 
@@ -130,17 +120,52 @@ class game {
             for (let i = 0; i < evt.touches.length; i++)
                 if (evt.touches[i].identifier == iden)
                     check = false;
-            if (check)
+            if (check) {
                 this.amu.rm = false;
+                iden = -111;
+            }
+
+            check = true;
+            for (let i = 0; i < evt.touches.length; i++)
+                if (evt.touches[i].identifier == idenKill)
+                    check = false;
+            if (check) {
+                var k = this.checkKill();
+                if (k != -1) {
+                    if (this.amu.xA < AM[k].xA)
+                        this.amu.direction = 1;
+                    else
+                        this.amu.direction = 2;
+                    this.amu.xA = AM[k].xA;
+                    this.amu.yA = AM[k].yA;
+                    AM[k].alive = false;
+                }
+                idenKill = -222;
+            }
+
             this.draw();
         })
     }
 
     listenMouse() {
-        document.addEventListener("mousemove", e => {
-            if (!e) e = window.event;
-            var x = e.offsetX==undefined?e.layerX:e.offsetX;
-            var y = e.offsetY==undefined?e.layerY:e.offsetY;
+        document.addEventListener("mousedown", evt => {
+            var x = evt.x;
+            var y = evt.y;
+            var Xk = game_W - this.getWidth() * 2.5;
+            var Yk = game_H - this.getWidth() * 2.5;
+            if ((Xk - x) * (Xk - x) + (Yk - y) * (Yk - y) <= 6 * this.getWidth() * this.getWidth()) {
+                console.log("Kill");
+                var k = this.checkKill();
+                if (k != -1) {
+                    if (this.amu.xA < AM[k].xA)
+                        this.amu.direction = 1;
+                    else
+                        this.amu.direction = 2;
+                    this.amu.xA = AM[k].xA;
+                    this.amu.yA = AM[k].yA;
+                    AM[k].alive = false;
+                }
+            }
         }) 
     }
 
