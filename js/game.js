@@ -105,18 +105,17 @@ class game {
                     this.draw();
                 }
             }
-            // var Xk = game_W - this.getWidth() * 2.5;
-            // var Yk = game_H - this.getWidth() * 2.5;
-            // if ((Xk - x) * (Xk - x) + (Yk - y) * (Yk - y) <= 6 * this.getWidth() * this.getWidth()) {
-            //     console.log("Kill");
-            //     idenKill = evt.touches[evt.touches.length - 1].identifier;
-            // }
+            var Xk = game_W - this.getWidth() * 2.5;
+            var Yk = game_H - this.getWidth() * 2.5;
+            if ((Xk - x) * (Xk - x) + (Yk - y) * (Yk - y) <= 6 * this.getWidth() * this.getWidth()) {
+                console.log("Kill");
+                idenKill = evt.touches[evt.touches.length - 1].identifier;
+            }
         })
 
         document.addEventListener("touchend", evt => {
             xIM2 = this.getWidth() * 2.5;
             yIM2 = game_H - this.getWidth() * 4.5;
-            // this.amu.rm = false;
             let check = true;
             for (let i = 0; i < evt.touches.length; i++)
                 if (evt.touches[i].identifier == iden)
@@ -126,27 +125,27 @@ class game {
                 iden = -111;
             }
 
-            // check = true;
-            // if (idenKill == -222)
-            //     check = false;
-            // for (let i = 0; i < evt.touches.length; i++)
-            //     if (evt.touches[i].identifier == idenKill)
-            //         check = false;
-            // if (check) {
-            //     console.log(idenKill);
-            //     var k = this.checkKill();
-            //     if (k != -1 && killcooldown == 0) {
-            //         if (this.amu.xA < AM[k].xA)
-            //             this.amu.direction = 1;
-            //         else
-            //             this.amu.direction = 2;
-            //         this.amu.xA = AM[k].xA;
-            //         this.amu.yA = AM[k].yA;
-            //         AM[k].alive = false;
-            //     }
-            //     idenKill = -222;
-            //     killcooldown = 12;
-            // }
+            check = true;
+            if (idenKill == -222)
+                check = false;
+            for (let i = 0; i < evt.touches.length; i++)
+                if (evt.touches[i].identifier == idenKill)
+                    check = false;
+            if (check) {
+                console.log(idenKill);
+                var k = this.checkKill();
+                if (k != -1 && killcooldown == 0) {
+                    if (this.amu.xA < AM[k].xA)
+                        this.amu.direction = 1;
+                    else
+                        this.amu.direction = 2;
+                    this.amu.xA = AM[k].xA;
+                    this.amu.yA = AM[k].yA;
+                    AM[k].alive = false;
+                }
+                idenKill = -222;
+                killcooldown = 12;
+            }
 
             this.draw();
         })
