@@ -18,7 +18,7 @@ kill[1].src="images/kill/kill1.png";
 
 
 AM = [];
-N = 3;
+N = 10;
 let test = 0;
 var v = [];
 let iden = -111;
@@ -117,6 +117,7 @@ class game {
                 if (k != -1) {
                     this.amu.xA = AM[k].xA;
                     this.amu.yA = AM[k].yA;
+                    AM[k].alive = false;
                 }
             }
         })
@@ -220,7 +221,7 @@ class game {
 
     checkKill() {
         for (var i = 0; i < N; i++) {
-            if (Math.sqrt(Math.abs(this.amu.xA - AM[i].xA) * Math.abs(this.amu.xA - AM[i].xA) + Math.abs(this.amu.yA - AM[i].yA) * Math.abs(this.amu.yA - AM[i].yA)) <= 6 * this.getWidth()) {
+            if (AM[i].alive && Math.sqrt(Math.abs(this.amu.xA - AM[i].xA) * Math.abs(this.amu.xA - AM[i].xA) + Math.abs(this.amu.yA - AM[i].yA) * Math.abs(this.amu.yA - AM[i].yA)) <= 6 * this.getWidth()) {
                 return i;
             }
         }       

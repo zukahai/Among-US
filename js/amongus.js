@@ -4,6 +4,7 @@ class amongus{
         this.xA = xA;
         this.yA = yA;
         this.name = name;
+        this.alive = true;
         this.init();
     }
 
@@ -27,6 +28,8 @@ class amongus{
                 this.A[i][j] = new Image();
                 this.A[i][j].src="images/AmongUS/" + rd + "/" + i + "_" + j + ".png";
             }
+        this.die = new Image();
+        this.die.src="images/AmongUS/" + rd + "/die.png";
         this.ufo_ = new UFO(this.game, this, this.xA, this.yA);
         this.loop();
     }
@@ -34,9 +37,10 @@ class amongus{
     loop() {
         this.update();
         // this.draw();
-        if (this.Auto)
+        if (this.Auto && this.alive)
             this.auto();
-        setTimeout(() => this.loop(), 30);
+        if (this.alive)
+            setTimeout(() => this.loop(), 30);
     }
 
     auto() {
@@ -71,11 +75,15 @@ class amongus{
         this.game.context.fillStyle = "#33FFFF";
         this.game.context.font = (Math.floor(this.game.getWidth() / 2)) + 'px Calibri';
         this.game.context.fillText(this.name, this.xA - 1.5 * Math.floor(this.game.getWidth() / 2), this.yA - this.game.getWidth() * 1.5);
-
-        if (this.rm || this.rm2)
-            this.game.context.drawImage(this.A[count2 % 4 + 1][this.direction], this.xA - this.game.getWidth() * 1.5, this.yA - this.game.getWidth() * 1.5, this.game.getWidth() * 3, this.game.getWidth() * 3);
-        else
-            this.game.context.drawImage(this.A[0][this.direction], this.xA - this.game.getWidth() * 1.5, this.yA - this.game.getWidth() * 1.5, this.game.getWidth() * 3, this.game.getWidth() * 3);
+        if (this.alive) {
+            if (this.rm || this.rm2)
+                this.game.context.drawImage(this.A[count2 % 4 + 1][this.direction], this.xA - this.game.getWidth() * 1.5, this.yA - this.game.getWidth() * 1.5, this.game.getWidth() * 3, this.game.getWidth() * 3);
+                    else
+                this.game.context.drawImage(this.A[0][this.direction], this.xA - this.game.getWidth() * 1.5, this.yA - this.game.getWidth() * 1.5, this.game.getWidth() * 3, this.game.getWidth() * 3);
+        } else {
+            this.game.context.drawImage(this.die, this.xA - this.game.getWidth() * 1.5, this.yA - this.game.getWidth() * 0.5, this.game.getWidth() * 3, this.game.getWidth() * 2.5);
+        }
+        
         this.ufo_.draw();
     }
 
