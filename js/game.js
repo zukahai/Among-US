@@ -202,9 +202,28 @@ class game {
         })
 
         document.addEventListener("keyup", key => {
-            this.amu.rm2 = false;
-            xCh = 0;
-            yCh = 0;
+            switch(key.keyCode) {
+                case 65:
+                case 37:
+                    xCh = 0;
+                    this.amu.direction = 2;
+                    break;
+                case 38:
+                case 87:
+                    yCh = 0;
+                    break;
+                case 39:
+                case 68:
+                    xCh = 0;
+                    this.amu.direction = 1;
+                    break;
+                case 40:
+                case 83:
+                    yCh = 0;
+                    break;
+            }
+            if (xCh == 0 && yCh == 0)
+                this.amu.rm2 = false;
         })
     }
 
