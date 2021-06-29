@@ -15,10 +15,11 @@ kill[0] = new Image();
 kill[0].src="images/kill/kill0.png";
 kill[1] = new Image();
 kill[1].src="images/kill/kill1.png";
+let killcooldown = 12;
 
 
 AM = [];
-N = 11;
+N = 4;
 var v = [];
 let iden = -111;
 let idenKill = -222;
@@ -104,12 +105,12 @@ class game {
                     this.draw();
                 }
             }
-            var Xk = game_W - this.getWidth() * 2.5;
-            var Yk = game_H - this.getWidth() * 2.5;
-            if ((Xk - x) * (Xk - x) + (Yk - y) * (Yk - y) <= 6 * this.getWidth() * this.getWidth()) {
-                console.log("Kill");
-                idenKill = evt.touches[evt.touches.length - 1].identifier;
-            }
+            // var Xk = game_W - this.getWidth() * 2.5;
+            // var Yk = game_H - this.getWidth() * 2.5;
+            // if ((Xk - x) * (Xk - x) + (Yk - y) * (Yk - y) <= 6 * this.getWidth() * this.getWidth()) {
+            //     console.log("Kill");
+            //     idenKill = evt.touches[evt.touches.length - 1].identifier;
+            // }
         })
 
         document.addEventListener("touchend", evt => {
@@ -125,23 +126,27 @@ class game {
                 iden = -111;
             }
 
-            check = true;
-            for (let i = 0; i < evt.touches.length; i++)
-                if (evt.touches[i].identifier == idenKill)
-                    check = false;
-            if (check) {
-                var k = this.checkKill();
-                if (k != -1) {
-                    if (this.amu.xA < AM[k].xA)
-                        this.amu.direction = 1;
-                    else
-                        this.amu.direction = 2;
-                    this.amu.xA = AM[k].xA;
-                    this.amu.yA = AM[k].yA;
-                    AM[k].alive = false;
-                }
-                idenKill = -222;
-            }
+            // check = true;
+            // if (idenKill == -222)
+            //     check = false;
+            // for (let i = 0; i < evt.touches.length; i++)
+            //     if (evt.touches[i].identifier == idenKill)
+            //         check = false;
+            // if (check) {
+            //     console.log(idenKill);
+            //     var k = this.checkKill();
+            //     if (k != -1 && killcooldown == 0) {
+            //         if (this.amu.xA < AM[k].xA)
+            //             this.amu.direction = 1;
+            //         else
+            //             this.amu.direction = 2;
+            //         this.amu.xA = AM[k].xA;
+            //         this.amu.yA = AM[k].yA;
+            //         AM[k].alive = false;
+            //     }
+            //     idenKill = -222;
+            //     killcooldown = 12;
+            // }
 
             this.draw();
         })
@@ -156,7 +161,7 @@ class game {
             if ((Xk - x) * (Xk - x) + (Yk - y) * (Yk - y) <= 6 * this.getWidth() * this.getWidth()) {
                 console.log("Kill");
                 var k = this.checkKill();
-                if (k != -1) {
+                if (k != -1 && killcooldown == 0) {
                     if (this.amu.xA < AM[k].xA)
                         this.amu.direction = 1;
                     else
@@ -164,6 +169,7 @@ class game {
                     this.amu.xA = AM[k].xA;
                     this.amu.yA = AM[k].yA;
                     AM[k].alive = false;
+                    killcooldown = 12;
                 }
             }
         }) 
@@ -218,6 +224,8 @@ class game {
             this.amu.xA += xCh;
             this.amu.yA += yCh;
         }
+        if (count % 50 == 0 && killcooldown > 0)
+            killcooldown--;
     }
 
     render() {
@@ -244,6 +252,15 @@ class game {
         this.amu.draw();
     }
 
+    drawKillcooldown() {
+        this.context.fillStyle = "#66FFFF";
+        this.context.font = (Math.floor(this.getWidth() * 2.5)) + 'px Calibri';
+        killcooldown = Math.floor(killcooldown);
+        if (killcooldown < 10) 
+            killcooldown = "0" + killcooldown;
+        this.context.fillText(killcooldown, game_W - this.getWidth() * 3.8, game_H - this.getWidth() * 1.8);
+    }
+
     checkKill() {
         for (var i = 0; i < N; i++) {
             if (AM[i].alive && Math.sqrt(Math.abs(this.amu.xA - AM[i].xA) * Math.abs(this.amu.xA - AM[i].xA) + Math.abs(this.amu.yA - AM[i].yA) * Math.abs(this.amu.yA - AM[i].yA)) <= 6 * this.getWidth()) {
@@ -255,11 +272,12 @@ class game {
 
     drawKill() {
         let k = this.checkKill();
-        // console.log(k);
-        if (k == -1)
+        if (k == -1 || killcooldown > 0)
             this.context.drawImage(kill[0], game_W - this.getWidth() * 4.5, game_H - this.getWidth() * 4.5, this.getWidth() * 4, this.getWidth() * 4);
         else
             this.context.drawImage(kill[1], game_W - this.getWidth() * 4.5, game_H - this.getWidth() * 4.5, this.getWidth() * 4, this.getWidth() * 4);
+        if (killcooldown > 0)
+            this.drawKillcooldown();
     }
 
     drawEcircle() {

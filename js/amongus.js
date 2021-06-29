@@ -81,10 +81,10 @@ class amongus{
                     else
                 this.game.context.drawImage(this.A[0][this.direction], this.xA - this.game.getWidth() * 1.5, this.yA - this.game.getWidth() * 1.5, this.game.getWidth() * 3, this.game.getWidth() * 3);
         } else {
-            this.game.context.drawImage(this.die, this.xA - this.game.getWidth() * 1.5, this.yA - this.game.getWidth() * 0.5, this.game.getWidth() * 3, this.game.getWidth() * 2.5);
+            this.game.context.drawImage(this.die, this.xA - this.game.getWidth() * 1.25, this.yA - this.game.getWidth() * 0.5, this.game.getWidth() * 2.5, this.game.getWidth() * 2);
         }
-        
-        this.ufo_.draw();
+        if (this.alive)
+            this.ufo_.draw();
     }
 
     setXY(x, y) {
