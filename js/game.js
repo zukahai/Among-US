@@ -1,4 +1,5 @@
-const KILLCOOLDOWN = 12;
+const KILLCOOLDOWN = 15;
+const SPEEDCOOLDOWN = 20;
 
 let game_W = 20;
 let game_H = 20;
@@ -17,7 +18,15 @@ kill[0] = new Image();
 kill[0].src="images/kill/kill0.png";
 kill[1] = new Image();
 kill[1].src="images/kill/kill1.png";
+
+speed = [];
+speed[0] = new Image();
+speed[0].src="images/speed/speed0.png";
+speed[1] = new Image();
+speed[1].src="images/speed/speed1.png";
 let killcooldown = KILLCOOLDOWN;
+let speedcooldown = SPEEDCOOLDOWN;
+let xSP = 1;
 
 
 AM = [];
@@ -25,6 +34,7 @@ N = 5;
 var v = [];
 let iden = -111;
 let idenKill = -222;
+let idenSpeed = -333;
 
 class game {
     constructor() {
@@ -113,6 +123,20 @@ class game {
                 console.log("Kill");
                 idenKill = evt.touches[evt.touches.length - 1].identifier;
             }
+
+            var Xk = game_W - this.getWidth() * 2.5;
+            var Yk = game_H - this.getWidth() * 2.5;
+            if ((Xk - x) * (Xk - x) + (Yk - y) * (Yk - y) <= 6 * this.getWidth() * this.getWidth()) {
+                console.log("Kill");
+                idenKill = evt.touches[evt.touches.length - 1].identifier;
+            }
+
+            var Xp = game_W - this.getWidth() * 2.5;
+            var Yp = game_H - this.getWidth() * 7;
+            if ((Xp - x) * (Xp - x) + (Yp - y) * (Yp - y) <= 6 * this.getWidth() * this.getWidth()) {
+                console.log("speed");
+                idenSpeed = evt.touches[evt.touches.length - 1].identifier;
+            }
         })
 
         document.addEventListener("touchend", evt => {
@@ -149,6 +173,19 @@ class game {
                 idenKill = -222;
             }
 
+            check = true;
+            if (idenSpeed== -333 || speedcooldown > 0)
+                check = false;
+            for (let i = 0; i < evt.touches.length; i++)
+                if (evt.touches[i].identifier == idenSpeed)
+                    check = false;
+            if (check) {
+                console.log("SPEED");
+                xSP = 2;
+                speedcooldown = SPEEDCOOLDOWN;
+                idenSpeed = -333;
+            }
+                
             this.draw();
         })
     }
@@ -172,6 +209,13 @@ class game {
                     AM[k].alive = false;
                     killcooldown = KILLCOOLDOWN;
                 }
+            }
+
+            var Xp = game_W - this.getWidth() * 2.5;
+            var Yp = game_H - this.getWidth() * 7;
+            if ((Xp - x) * (Xp - x) + (Yp - y) * (Yp - y) <= 6 * this.getWidth() * this.getWidth()) {
+                xSP = 2;
+                speedcooldown = SPEEDCOOLDOWN;
             }
         }) 
     }
@@ -241,11 +285,17 @@ class game {
         if (count % 4 == 0)
             count2++;
         if (this.amu.rm || this.amu.rm2) {
-            this.amu.xA += xCh;
-            this.amu.yA += yCh;
+            this.amu.xA += xCh * xSP;
+            this.amu.yA += yCh * xSP;
         }
-        if (count % 35 == 0 && killcooldown > 0)
-            killcooldown--;
+        if (count % 35 == 0) {
+            if (killcooldown > 0)
+                killcooldown--;
+            if (speedcooldown > 0)
+                speedcooldown--;
+        }
+        if (speedcooldown <= SPEEDCOOLDOWN / 2)
+            xSP = 1;
     }
 
     render() {
@@ -267,16 +317,26 @@ class game {
         for (let i = 0; i < N; i++) 
             AM[i].draw();
         this.drawKill();
+        this.drawSpeed();
         this.amu.draw();
     }
 
     drawKillcooldown() {
-        this.context.fillStyle = "#66FFFF";
+        this.context.fillStyle = "#CC0000";
         this.context.font = (Math.floor(this.getWidth() * 2.5)) + 'px Calibri';
         killcooldown = Math.floor(killcooldown);
         if (killcooldown < 10) 
             killcooldown = "0" + killcooldown;
         this.context.fillText(killcooldown, game_W - this.getWidth() * 3.8, game_H - this.getWidth() * 1.8);
+    }
+
+    drawSpeedcooldown() {
+        this.context.fillStyle = "#CC0000";
+        this.context.font = (Math.floor(this.getWidth() * 2.5)) + 'px Calibri';
+        speedcooldown = Math.floor(speedcooldown);
+        if (speedcooldown < 10) 
+            speedcooldown = "0" + speedcooldown;
+        this.context.fillText(speedcooldown, game_W - this.getWidth() * 3.8, game_H - this.getWidth() * 6.8);
     }
 
     checkKill() {
@@ -302,6 +362,16 @@ class game {
         if (killcooldown > 0)
             this.drawKillcooldown();
     }
+
+    drawSpeed() {
+        if (speedcooldown > 0)
+            this.context.drawImage(speed[0], game_W - this.getWidth() * 4.5, game_H - this.getWidth() * 9, this.getWidth() * 4, this.getWidth() * 4);
+        else 
+            this.context.drawImage(speed[1], game_W - this.getWidth() * 4.5, game_H - this.getWidth() * 9, this.getWidth() * 4, this.getWidth() * 4);
+        if (speedcooldown > 0)
+            this.drawSpeedcooldown();
+    }
+
 
     drawEcircle() {
         this.context.drawImage(im, this.getWidth() * 0.5, game_H - this.getWidth() * 6.5, this.getWidth() * 6, this.getWidth() * 6);
