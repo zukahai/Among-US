@@ -142,9 +142,9 @@ class game {
                     this.amu.xA = AM[k].xA;
                     this.amu.yA = AM[k].yA;
                     AM[k].alive = false;
+                    killcooldown = 12;
                 }
                 idenKill = -222;
-                killcooldown = 12;
             }
 
             this.draw();
