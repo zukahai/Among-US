@@ -1,4 +1,4 @@
-const KILLCOOLDOWN = 0;
+const KILLCOOLDOWN = 12;
 
 let game_W = 20;
 let game_H = 20;
@@ -42,7 +42,7 @@ class game {
 
         this.amu = new amongus(this, game_W / 2, game_H / 2, "HaiZuka");
         for (let i = 0; i < N; i++) {
-            AM[i] = new amongus(this, game_W / 2 + this.getWidth() * 3, game_H / 2, "Player" + (i + 1));
+            AM[i] = new amongus(this, game_W / 2 + this.getWidth() * 3, game_H / 2, "Player " + (i + 1));
             AM[i].Auto = true;
         }
 
@@ -244,7 +244,7 @@ class game {
             this.amu.xA += xCh;
             this.amu.yA += yCh;
         }
-        if (count % 50 == 0 && killcooldown > 0)
+        if (count % 35 == 0 && killcooldown > 0)
             killcooldown--;
     }
 
