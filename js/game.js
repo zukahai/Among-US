@@ -10,11 +10,19 @@ var im2 = new Image();
 im2.src="images/moveButton2.png";
 var bg = new Image();
 bg.src="images/background.png";
+kill = [];
+kill[0] = new Image();
+kill[0].src="images/kill/kill0.png";
+kill[1] = new Image();
+kill[1].src="images/kill/kill1.png";
+
+
 AM = [];
 N = 3;
 let test = 0;
 var v = [];
 let iden = -111;
+let idenKill = -222;
 
 class game {
     constructor() {
@@ -89,6 +97,7 @@ class game {
             var y = evt.touches[evt.touches.length - 1].pageY;
             var Xc = this.getWidth() * 3.5;
             var Yc = game_H - this.getWidth() * 3.5;
+
             if ((Xc - x) * (Xc - x) + (Yc - y) * (Yc - y) <= 9 * this.getWidth() * this.getWidth()) {
                 if (!this.amu.rm) {
                     this.amu.rm = true;
@@ -97,7 +106,18 @@ class game {
                     yIM2 = y - this.getWidth();
                     this.draw();
                 }
-                
+            }
+
+            var Xk = game_W - this.getWidth() * 2.5;
+            var Yk = game_H - this.getWidth() * 2.5;
+            if ((Xk - x) * (Xk - x) + (Yk - y) * (Yk - y) <= 6 * this.getWidth() * this.getWidth()) {
+                console.log("Kill");
+                idenKill = evt.touches[evt.touches.length - 1].identifier;
+                var k = this.checkKill();
+                if (k != -1) {
+                    this.amu.xA = AM[k].xA;
+                    this.amu.yA = AM[k].yA;
+                }
             }
         })
 
@@ -191,9 +211,29 @@ class game {
         // console.log(game_W,' ', game_H);
         if (game_W < 1322 || this.amu.rm)
             this.drawEcircle();
+        // this.amu.draw();
         for (let i = 0; i < N; i++) 
             AM[i].draw();
+        this.drawKill();
         this.amu.draw();
+    }
+
+    checkKill() {
+        for (var i = 0; i < N; i++) {
+            if (Math.sqrt(Math.abs(this.amu.xA - AM[i].xA) * Math.abs(this.amu.xA - AM[i].xA) + Math.abs(this.amu.yA - AM[i].yA) * Math.abs(this.amu.yA - AM[i].yA)) <= 6 * this.getWidth()) {
+                return i;
+            }
+        }       
+        return -1;
+    }
+
+    drawKill() {
+        let k = this.checkKill();
+        // console.log(k);
+        if (k == -1)
+            this.context.drawImage(kill[0], game_W - this.getWidth() * 4.5, game_H - this.getWidth() * 4.5, this.getWidth() * 4, this.getWidth() * 4);
+        else
+            this.context.drawImage(kill[1], game_W - this.getWidth() * 4.5, game_H - this.getWidth() * 4.5, this.getWidth() * 4, this.getWidth() * 4);
     }
 
     drawEcircle() {
