@@ -1,3 +1,5 @@
+const KILLCOOLDOWN = 0;
+
 let game_W = 20;
 let game_H = 20;
 let count = 0;
@@ -15,11 +17,11 @@ kill[0] = new Image();
 kill[0].src="images/kill/kill0.png";
 kill[1] = new Image();
 kill[1].src="images/kill/kill1.png";
-let killcooldown = 12;
+let killcooldown = KILLCOOLDOWN;
 
 
 AM = [];
-N = 10;
+N = 5;
 var v = [];
 let iden = -111;
 let idenKill = -222;
@@ -142,7 +144,7 @@ class game {
                     this.amu.xA = AM[k].xA;
                     this.amu.yA = AM[k].yA;
                     AM[k].alive = false;
-                    killcooldown = 12;
+                    killcooldown = KILLCOOLDOWN;
                 }
                 idenKill = -222;
             }
@@ -168,7 +170,7 @@ class game {
                     this.amu.xA = AM[k].xA;
                     this.amu.yA = AM[k].yA;
                     AM[k].alive = false;
-                    killcooldown = 12;
+                    killcooldown = KILLCOOLDOWN;
                 }
             }
         }) 
@@ -285,8 +287,10 @@ class game {
                 m = Math.sqrt(Math.abs(this.amu.xA - AM[i].xA) * Math.abs(this.amu.xA - AM[i].xA) + Math.abs(this.amu.yA - AM[i].yA) * Math.abs(this.amu.yA - AM[i].yA));
                 index = i;
             }
-        }       
-        return index;
+        }
+        if (m < 5 * this.getWidth())
+            return index;       
+        return -1;
     }
 
     drawKill() {

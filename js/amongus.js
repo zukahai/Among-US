@@ -61,13 +61,13 @@ class amongus{
 
     update() {
         if (this.xA < 0)
-            this.xA = game_W;
-        if (this.xA > game_W)
             this.xA = 0;
+        if (this.xA > game_W)
+            this.xA = game_W;
         if (this.yA < 0)
-            this.yA = game_H;
-        if (this.yA > game_H)
             this.yA = 0;
+        if (this.yA > game_H)
+            this.yA = game_H;
     }
 
 
