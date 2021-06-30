@@ -32,8 +32,11 @@ class amongus{
         this.die = new Image();
         this.die.src="images/AmongUS/" + rd + "/die.png";
 
-        this.vc = new Image();
-        this.vc.src="images/AmongUS/" + rd + "/vc.png";
+        this.vc = [];
+        this.vc[0] = new Image();
+        this.vc[0].src="images/VC/vc0.png";
+        this.vc[1] = new Image();
+        this.vc[1].src="images/VC/vc1.png";
 
         this.ufo_ = new UFO(this.game, this, this.xA, this.yA);
         this.loop();
@@ -78,7 +81,7 @@ class amongus{
 
     draw() {
         if (this.alive && this.Vc) {
-            this.game.context.drawImage(this.vc, this.xA - this.game.getWidth() * 1.5, this.yA + this.game.getWidth() * 0.4, this.game.getWidth() * 3, this.game.getWidth() * 1.5);
+            this.game.context.drawImage(this.vc[(Math.floor(count / 10)) % 2], this.xA - this.game.getWidth() * 1.5, this.yA + this.game.getWidth() * 0.4, this.game.getWidth() * 3, this.game.getWidth() * 1.5);
         }
         this.game.context.fillStyle = "#0000FF";
         this.game.context.font = (Math.floor(this.game.getWidth() / 2)) + 'px Calibri';
