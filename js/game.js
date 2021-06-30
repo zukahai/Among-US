@@ -43,7 +43,7 @@ let xSP = 1;
 
 
 AM = [];
-N = 5;
+N = 6;
 var v = [];
 let iden = -111;
 let idenKill = -222;
@@ -415,7 +415,7 @@ class game {
                 index = i;
             }
         }
-        if (m < 5 * this.getWidth())
+        if (m < 7 * this.getWidth())
             return index;       
         return -1;
     }

@@ -12,6 +12,7 @@ class amongus{
 
     init() {
         this.time = 0;
+        this.timeDie = 250;
         this.rm = false;
         this.rm2 = false;
         this.direction = 1;
@@ -104,7 +105,7 @@ class amongus{
                 this.game.context.drawImage(this.A[count2 % 4 + 1][this.direction], this.xA - this.game.getWidth() * 1.5, this.yA - this.game.getWidth() * 1.5, this.game.getWidth() * 3, this.game.getWidth() * 3);
             else
                 this.game.context.drawImage(this.A[0][this.direction], this.xA - this.game.getWidth() * 1.5, this.yA - this.game.getWidth() * 1.5, this.game.getWidth() * 3, this.game.getWidth() * 3);
-        } else {
+        } else if (this.timeDie --  > 0) {
             this.game.context.fillText(this.name, this.xA - 1.5 * Math.floor(this.game.getWidth() / 2), this.yA - this.game.getWidth() / 2);
             this.game.context.drawImage(this.die, this.xA - this.game.getWidth() * 1.25, this.yA - this.game.getWidth() * 0.5, this.game.getWidth() * 2.5, this.game.getWidth() * 2);
         }
