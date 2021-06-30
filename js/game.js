@@ -1,5 +1,5 @@
-const KILLCOOLDOWN = 15;
-const SPEEDCOOLDOWN = 20;
+const KILLCOOLDOWN = 11;
+const SPEEDCOOLDOWN = 15;
 
 let game_W = 20;
 let game_H = 20;
@@ -124,13 +124,6 @@ class game {
                 idenKill = evt.touches[evt.touches.length - 1].identifier;
             }
 
-            var Xk = game_W - this.getWidth() * 2.5;
-            var Yk = game_H - this.getWidth() * 2.5;
-            if ((Xk - x) * (Xk - x) + (Yk - y) * (Yk - y) <= 6 * this.getWidth() * this.getWidth()) {
-                console.log("Kill");
-                idenKill = evt.touches[evt.touches.length - 1].identifier;
-            }
-
             var Xp = game_W - this.getWidth() * 2.5;
             var Yp = game_H - this.getWidth() * 7;
             if ((Xp - x) * (Xp - x) + (Yp - y) * (Yp - y) <= 6 * this.getWidth() * this.getWidth()) {
@@ -174,7 +167,7 @@ class game {
             }
 
             check = true;
-            if (idenSpeed== -333 || speedcooldown > 0)
+            if (idenSpeed == -333 || speedcooldown > 0)
                 check = false;
             for (let i = 0; i < evt.touches.length; i++)
                 if (evt.touches[i].identifier == idenSpeed)
@@ -213,7 +206,7 @@ class game {
 
             var Xp = game_W - this.getWidth() * 2.5;
             var Yp = game_H - this.getWidth() * 7;
-            if ((Xp - x) * (Xp - x) + (Yp - y) * (Yp - y) <= 6 * this.getWidth() * this.getWidth()) {
+            if ((Xp - x) * (Xp - x) + (Yp - y) * (Yp - y) <= 6 * this.getWidth() * this.getWidth() && speedcooldown == 0) {
                 xSP = 2;
                 speedcooldown = SPEEDCOOLDOWN;
             }
