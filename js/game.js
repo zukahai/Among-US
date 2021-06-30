@@ -33,9 +33,12 @@ freeze_im[1] = new Image();
 freeze_im[1].src="images/VC/vc3.png";
 
 
-let killcooldown = KILLCOOLDOWN;
-let speedcooldown = SPEEDCOOLDOWN;
-let freezeCollDown = FREEZECOOLDOWN;
+// let killcooldown = KILLCOOLDOWN / 3;
+// let speedcooldown = SPEEDCOOLDOWN / 3;
+// let freezeCollDown = FREEZECOOLDOWN / 3;
+let killcooldown = 0;
+let speedcooldown = 0;
+let freezeCollDown = 0;
 let xSP = 1;
 
 
