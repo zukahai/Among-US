@@ -1,5 +1,6 @@
 const KILLCOOLDOWN = 11;
 const SPEEDCOOLDOWN = 15;
+const FREEZECOOLDOWN = 20;
 
 let game_W = 20;
 let game_H = 20;
@@ -24,8 +25,17 @@ speed[0] = new Image();
 speed[0].src="images/speed/speed0.png";
 speed[1] = new Image();
 speed[1].src="images/speed/speed1.png";
+
+freeze_im = [];
+freeze_im[0] = new Image();
+freeze_im[0].src="images/VC/vc2.png";
+freeze_im[1] = new Image();
+freeze_im[1].src="images/VC/vc3.png";
+
+
 let killcooldown = KILLCOOLDOWN;
 let speedcooldown = SPEEDCOOLDOWN;
+let freezeCollDown = FREEZECOOLDOWN;
 let xSP = 1;
 
 
@@ -35,6 +45,7 @@ var v = [];
 let iden = -111;
 let idenKill = -222;
 let idenSpeed = -333;
+let idenFreeze = -444;
 
 class game {
     constructor() {
@@ -131,6 +142,13 @@ class game {
                 console.log("speed");
                 idenSpeed = evt.touches[evt.touches.length - 1].identifier;
             }
+
+            var Xf = game_W - this.getWidth() * 2.5;
+            var Yf = game_H - this.getWidth() * 11.5;
+            if ((Xf - x) * (Xf - x) + (Yf - y) * (Yf - y) <= 6 * this.getWidth() * this.getWidth()) {
+                console.log("freeze");
+                idenFreeze = evt.touches[evt.touches.length - 1].identifier;
+            }
         })
 
         document.addEventListener("touchend", evt => {
@@ -179,6 +197,23 @@ class game {
                 speedcooldown = SPEEDCOOLDOWN;
                 idenSpeed = -333;
             }
+
+            check = true;
+            if (idenFreeze == -444 || freezeCollDown > 0)
+                check = false;
+            for (let i = 0; i < evt.touches.length; i++)
+                if (evt.touches[i].identifier == idenFreeze)
+                    check = false;
+            if (check) {
+                console.log("FREEZE");
+                for (let i = 0; i < N; i++) {
+                    AM[i].Auto = false;
+                    AM[i].rm = false;
+                    AM[i].freeze = true;
+                }
+                idenFreeze = -444;
+                freezeCollDown = FREEZECOOLDOWN;
+            }
                 
             this.draw();
         })
@@ -210,6 +245,19 @@ class game {
             if ((Xp - x) * (Xp - x) + (Yp - y) * (Yp - y) <= 6 * this.getWidth() * this.getWidth() && speedcooldown == 0) {
                 xSP = 2;
                 speedcooldown = SPEEDCOOLDOWN;
+            }
+
+            var Xf = game_W - this.getWidth() * 2.5;
+            var Yf = game_H - this.getWidth() * 11.5;
+            if ((Xf - x) * (Xf - x) + (Yf - y) * (Yf - y) <= 6 * this.getWidth() * this.getWidth() && freezeCollDown == 0) {
+                console.log("FREEZE");
+                for (let i = 0; i < N; i++) {
+                    AM[i].Auto = false;
+                    AM[i].rm = false;
+                    AM[i].freeze = true;
+                }
+                idenFreeze = -444;
+                freezeCollDown = FREEZECOOLDOWN;
             }
         }) 
     }
@@ -287,9 +335,20 @@ class game {
                 killcooldown--;
             if (speedcooldown > 0)
                 speedcooldown--;
+            if (freezeCollDown > 0)
+                freezeCollDown--;
         }
-        if (speedcooldown <= SPEEDCOOLDOWN / 2)
+        if (speedcooldown <= SPEEDCOOLDOWN / 2) {
             xSP = 1;
+        }
+
+        if (freezeCollDown <= 2 * FREEZECOOLDOWN / 3) {
+            for (let i = 0; i < N; i++) {
+                AM[i].Auto = true;
+                AM[i].rm = true;
+                AM[i].freeze = false;
+            }
+        }
     }
 
     render() {
@@ -308,10 +367,12 @@ class game {
         this.clearScreen();
         if (game_W < 1322 || this.amu.rm)
             this.drawEcircle();
-        for (let i = 0; i < N; i++) 
+        for (let i = 0; i < N; i++) {
             AM[i].draw();
+        }
         this.drawKill();
         this.drawSpeed();
+        this.drawFreeze();
         this.amu.draw();
     }
 
@@ -331,6 +392,15 @@ class game {
         if (speedcooldown < 10) 
             speedcooldown = "0" + speedcooldown;
         this.context.fillText(speedcooldown, game_W - this.getWidth() * 3.8, game_H - this.getWidth() * 6.8);
+    }
+
+    drawFreezeCoolDown() {
+        this.context.fillStyle = "#CC0000";
+        this.context.font = (Math.floor(this.getWidth() * 2.5)) + 'px Calibri';
+        freezeCollDown = Math.floor(freezeCollDown);
+        if (freezeCollDown < 10) 
+            freezeCollDown = "0" + freezeCollDown;
+        this.context.fillText(freezeCollDown, game_W - this.getWidth() * 3.8, game_H - this.getWidth() * 10.8);
     }
 
     checkKill() {
@@ -364,6 +434,15 @@ class game {
             this.context.drawImage(speed[1], game_W - this.getWidth() * 4.5, game_H - this.getWidth() * 9, this.getWidth() * 4, this.getWidth() * 4);
         if (speedcooldown > 0)
             this.drawSpeedcooldown();
+    }
+
+    drawFreeze() {
+        if (freezeCollDown > 0)
+            this.context.drawImage(freeze_im[0], game_W - this.getWidth() * 4.5, game_H - this.getWidth() * 13.5, this.getWidth() * 4, this.getWidth() * 4);
+        else
+            this.context.drawImage(freeze_im[1], game_W - this.getWidth() * 4.5, game_H - this.getWidth() * 13.5, this.getWidth() * 4, this.getWidth() * 4);
+        if (freezeCollDown > 0)
+            this.drawFreezeCoolDown();
     }
 
 

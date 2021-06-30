@@ -6,6 +6,7 @@ class amongus{
         this.name = name;
         this.alive = true;
         this.Vc = false;
+        this.freeze = false;
         this.init();
     }
 
@@ -33,10 +34,10 @@ class amongus{
         this.die.src="images/AmongUS/" + rd + "/die.png";
 
         this.vc = [];
-        this.vc[0] = new Image();
-        this.vc[0].src="images/VC/vc0.png";
-        this.vc[1] = new Image();
-        this.vc[1].src="images/VC/vc1.png";
+        for (let i = 0; i < 2; i++) {
+            this.vc[i] = new Image();
+            this.vc[i].src="images/VC/vc" + i + ".png"; 
+        }
 
         this.ufo_ = new UFO(this.game, this, this.xA, this.yA);
         this.loop();
@@ -44,7 +45,6 @@ class amongus{
 
     loop() {
         this.update();
-        // this.draw();
         if (this.Auto && this.alive)
             this.auto();
         if (this.alive)
@@ -78,6 +78,11 @@ class amongus{
             this.yA = game_H;
     }
 
+    drawVC() {
+        if (this.alive) {
+            this.game.context.drawImage(this.vc[(Math.floor(count / 10)) % 2], this.xA - this.game.getWidth() * 1.5, this.yA - this.game.getWidth() * 1.5, this.game.getWidth() * 3, this.game.getWidth() * 3);
+        }
+    }
 
     draw() {
         if (this.alive && this.Vc) {
@@ -97,7 +102,9 @@ class amongus{
         }
         if (this.alive)
             this.ufo_.draw();
-            
+
+        if (this.freeze)
+            this.drawVC();   
     }
 
     setXY(x, y) {
