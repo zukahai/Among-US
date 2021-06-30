@@ -51,6 +51,7 @@ class game {
         this.render();
 
         this.amu = new amongus(this, game_W / 2, game_H / 2, "HaiZuka");
+        this.amu.Vc = true;
         for (let i = 0; i < N; i++) {
             AM[i] = new amongus(this, game_W / 2 + this.getWidth() * 3, game_H / 2, "Player " + (i + 1));
             AM[i].Auto = true;
