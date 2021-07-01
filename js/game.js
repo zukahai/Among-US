@@ -43,7 +43,8 @@ let xSP = 1;
 
 
 AM = [];
-N = 6;
+N = 3;
+N2 = 1;
 var v = [];
 let iden = -111;
 let idenKill = -222;
@@ -66,9 +67,9 @@ class game {
 
         this.amu = new amongus(this, game_W / 2, game_H / 2, "HaiZuka");
         this.amu.Vc = true;
+        this.amu.rm = false;
         for (let i = 0; i < N; i++) {
             AM[i] = new amongus(this, game_W / 2 + this.getWidth() * 3, game_H / 2, "Player " + (i + 1));
-            AM[i].Auto = true;
         }
 
         xIM2 = this.getWidth() * 2.5;
@@ -175,7 +176,7 @@ class game {
             if (check) {
                 console.log(idenKill);
                 var k = this.checkKill();
-                if (k != -1 && killcooldown == 0) {
+                if (k != -1) {
                     if (this.amu.xA < AM[k].xA)
                         this.amu.direction = 1;
                     else
@@ -183,7 +184,7 @@ class game {
                     this.amu.xA = AM[k].xA;
                     this.amu.yA = AM[k].yA;
                     AM[k].alive = false;
-                    killcooldown = KILLCOOLDOWN;
+                    killcooldown = KILLCOOLDOWN - N2 / 5;
                 }
                 idenKill = -222;
             }
@@ -197,7 +198,7 @@ class game {
             if (check) {
                 console.log("SPEED");
                 xSP = 2;
-                speedcooldown = SPEEDCOOLDOWN;
+                speedcooldown = SPEEDCOOLDOWN - N2 / 5;
                 idenSpeed = -333;
             }
 
@@ -215,7 +216,7 @@ class game {
                     AM[i].freeze = true;
                 }
                 idenFreeze = -444;
-                freezeCollDown = FREEZECOOLDOWN;
+                freezeCollDown = FREEZECOOLDOWN - N2 / 5;
             }
                 
             this.draw();
@@ -231,7 +232,7 @@ class game {
             if ((Xk - x) * (Xk - x) + (Yk - y) * (Yk - y) <= 6 * this.getWidth() * this.getWidth()) {
                 console.log("Kill");
                 var k = this.checkKill();
-                if (k != -1 && killcooldown == 0) {
+                if (k != -1 && killcooldown <= 0) {
                     if (this.amu.xA < AM[k].xA)
                         this.amu.direction = 1;
                     else
@@ -239,20 +240,20 @@ class game {
                     this.amu.xA = AM[k].xA;
                     this.amu.yA = AM[k].yA;
                     AM[k].alive = false;
-                    killcooldown = KILLCOOLDOWN;
+                    killcooldown = KILLCOOLDOWN - N2 / 5;
                 }
             }
 
             var Xp = game_W - this.getWidth() * 2.5;
             var Yp = game_H - this.getWidth() * 7;
-            if ((Xp - x) * (Xp - x) + (Yp - y) * (Yp - y) <= 6 * this.getWidth() * this.getWidth() && speedcooldown == 0) {
+            if ((Xp - x) * (Xp - x) + (Yp - y) * (Yp - y) <= 6 * this.getWidth() * this.getWidth() && speedcooldown <= 0) {
                 xSP = 2;
-                speedcooldown = SPEEDCOOLDOWN;
+                speedcooldown = SPEEDCOOLDOWN - N2 / 5;
             }
 
             var Xf = game_W - this.getWidth() * 2.5;
             var Yf = game_H - this.getWidth() * 11.5;
-            if ((Xf - x) * (Xf - x) + (Yf - y) * (Yf - y) <= 6 * this.getWidth() * this.getWidth() && freezeCollDown == 0) {
+            if ((Xf - x) * (Xf - x) + (Yf - y) * (Yf - y) <= 6 * this.getWidth() * this.getWidth() && freezeCollDown <= 0) {
                 console.log("FREEZE");
                 for (let i = 0; i < N; i++) {
                     AM[i].Auto = false;
@@ -260,7 +261,7 @@ class game {
                     AM[i].freeze = true;
                 }
                 idenFreeze = -444;
-                freezeCollDown = FREEZECOOLDOWN;
+                freezeCollDown = FREEZECOOLDOWN - N2 / 5;
             }
         }) 
     }

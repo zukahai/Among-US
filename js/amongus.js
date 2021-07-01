@@ -11,12 +11,15 @@ class amongus{
     }
 
     init() {
+        if (this.name != 'HaiZuka')
+            this.name = "Player " + (N2++);
         this.time = 0;
-        this.timeDie = 250;
-        this.rm = false;
+        this.timeDie = 150;
+        this.rm = true;
         this.rm2 = false;
         this.direction = 1;
         this.Auto = false;
+        this.alive = true;
         this.x1 = 0;
         this.y1 = 0;
         this.A = [[, , ],
@@ -109,6 +112,8 @@ class amongus{
             this.game.context.fillText(this.name, this.xA - 1.5 * Math.floor(this.game.getWidth() / 2), this.yA - this.game.getWidth() / 2);
             this.game.context.drawImage(this.die, this.xA - this.game.getWidth() * 1.25, this.yA - this.game.getWidth() * 0.5, this.game.getWidth() * 2.5, this.game.getWidth() * 2);
         }
+        if (this.timeDie < -200)
+            this.init();
         if (this.alive)
             this.ufo_.draw();
 
