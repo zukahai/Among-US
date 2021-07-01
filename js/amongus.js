@@ -8,9 +8,11 @@ class amongus{
         this.Vc = false;
         this.freeze = false;
         this.init();
+        this.loop();
     }
 
     init() {
+        console.log("Hello");
         if (this.name != 'HaiZuka')
             this.name = "Player " + (N2++);
         this.time = 0;
@@ -20,6 +22,7 @@ class amongus{
         this.direction = 1;
         this.Auto = true;
         this.alive = true;
+        this.freeze = false;
         this.x1 = 0;
         this.y1 = 0;
         this.A = [[, , ],
@@ -44,15 +47,13 @@ class amongus{
         }
 
         this.ufo_ = new UFO(this.game, this, this.xA, this.yA);
-        this.loop();
     }
 
     loop() {
         this.update();
         if (this.Auto && this.alive)
             this.auto();
-        if (this.alive)
-            setTimeout(() => this.loop(), 30);
+        setTimeout(() => this.loop(), 30);
     }
 
     auto() {
@@ -65,7 +66,6 @@ class amongus{
                 this.direction = 2;
             this.time = Math.floor(Math.random() * 50 + 20);
         } else {
-            this.rm = true;
             this.xA += this.x1;
             this.yA += this.y1;
         }
@@ -108,12 +108,14 @@ class amongus{
                 this.game.context.drawImage(this.A[count2 % 4 + 1][this.direction], this.xA - this.game.getWidth() * 1.5, this.yA - this.game.getWidth() * 1.5, this.game.getWidth() * 3, this.game.getWidth() * 3);
             else
                 this.game.context.drawImage(this.A[0][this.direction], this.xA - this.game.getWidth() * 1.5, this.yA - this.game.getWidth() * 1.5, this.game.getWidth() * 3, this.game.getWidth() * 3);
-        } else if (this.timeDie --  > 0) {
+        } else if (this.timeDie -- > 0) {
             this.game.context.fillText(this.name, this.xA - 1.5 * Math.floor(this.game.getWidth() / 2), this.yA - this.game.getWidth() / 2);
             this.game.context.drawImage(this.die, this.xA - this.game.getWidth() * 1.25, this.yA - this.game.getWidth() * 0.5, this.game.getWidth() * 2.5, this.game.getWidth() * 2);
         }
-        if (this.timeDie < -200)
+        
+        if (!this.alive && this.timeDie -- < -200)
             this.init();
+
         if (this.alive)
             this.ufo_.draw();
 
