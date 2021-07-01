@@ -157,8 +157,6 @@ class game {
         })
 
         document.addEventListener("touchend", evt => {
-            xIM2 = this.getWidth() * 2.5;
-            yIM2 = game_H - this.getWidth() * 4.5;
             let check = true;
             for (let i = 0; i < evt.touches.length; i++)
                 if (evt.touches[i].identifier == iden)
@@ -166,6 +164,8 @@ class game {
             if (check) {
                 this.amu.rm = false;
                 iden = -111;
+                xIM2 = this.getWidth() * 2.5;
+                yIM2 = game_H - this.getWidth() * 4.5;
             }
 
             check = true;
