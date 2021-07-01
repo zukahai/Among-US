@@ -1,8 +1,7 @@
 class amongus{
-    constructor(game, xA, yA, name){
+    constructor(game, name){
         this.game = game;
-        this.xA = xA;
-        this.yA = yA;
+
         this.name = name;
         this.alive = true;
         this.Vc = false;
@@ -15,6 +14,8 @@ class amongus{
         console.log("Hello");
         if (this.name != 'HaiZuka')
             this.name = "Player " + (N2++);
+        this.xA = Math.floor(Math.random() * game_W);
+        this.yA = Math.floor(Math.random() * game_H);
         this.time = 0;
         this.timeDie = 150;
         this.rm = true;
@@ -113,7 +114,7 @@ class amongus{
             this.game.context.drawImage(this.die, this.xA - this.game.getWidth() * 1.25, this.yA - this.game.getWidth() * 0.5, this.game.getWidth() * 2.5, this.game.getWidth() * 2);
         }
         
-        if (!this.alive && this.timeDie -- < -200)
+        if (!this.alive && this.timeDie < -200)
             this.init();
 
         if (this.alive)
