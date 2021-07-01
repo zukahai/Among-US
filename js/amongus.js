@@ -18,7 +18,7 @@ class amongus{
         this.rm = true;
         this.rm2 = false;
         this.direction = 1;
-        this.Auto = false;
+        this.Auto = true;
         this.alive = true;
         this.x1 = 0;
         this.y1 = 0;

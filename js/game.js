@@ -68,6 +68,7 @@ class game {
         this.amu = new amongus(this, game_W / 2, game_H / 2, "HaiZuka");
         this.amu.Vc = true;
         this.amu.rm = false;
+        this.amu.Auto = false;
         for (let i = 0; i < N; i++) {
             AM[i] = new amongus(this, game_W / 2 + this.getWidth() * 3, game_H / 2, "Player " + (i + 1));
         }
@@ -198,7 +199,7 @@ class game {
             if (check) {
                 console.log("SPEED");
                 xSP = 2;
-                speedcooldown = SPEEDCOOLDOWN - N2 / 5;
+                speedcooldown = SPEEDCOOLDOWN;
                 idenSpeed = -333;
             }
 
@@ -216,7 +217,7 @@ class game {
                     AM[i].freeze = true;
                 }
                 idenFreeze = -444;
-                freezeCollDown = FREEZECOOLDOWN - N2 / 5;
+                freezeCollDown = FREEZECOOLDOWN;
             }
                 
             this.draw();
@@ -248,7 +249,7 @@ class game {
             var Yp = game_H - this.getWidth() * 7;
             if ((Xp - x) * (Xp - x) + (Yp - y) * (Yp - y) <= 6 * this.getWidth() * this.getWidth() && speedcooldown <= 0) {
                 xSP = 2;
-                speedcooldown = SPEEDCOOLDOWN - N2 / 5;
+                speedcooldown = SPEEDCOOLDOWN;
             }
 
             var Xf = game_W - this.getWidth() * 2.5;
@@ -261,7 +262,7 @@ class game {
                     AM[i].freeze = true;
                 }
                 idenFreeze = -444;
-                freezeCollDown = FREEZECOOLDOWN - N2 / 5;
+                freezeCollDown = FREEZECOOLDOWN;
             }
         }) 
     }
@@ -342,11 +343,11 @@ class game {
             if (freezeCollDown > 0)
                 freezeCollDown--;
         }
-        if (speedcooldown <= SPEEDCOOLDOWN / 2) {
+        if (speedcooldown <= (SPEEDCOOLDOWN) / 2) {
             xSP = 1;
         }
 
-        if (freezeCollDown <= 2 * FREEZECOOLDOWN / 3) {
+        if (freezeCollDown <= 2 * (FREEZECOOLDOWN) / 2.5) {
             for (let i = 0; i < N; i++) {
                 AM[i].Auto = true;
                 AM[i].rm = true;
