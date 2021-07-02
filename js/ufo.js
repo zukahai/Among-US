@@ -28,15 +28,15 @@ class UFO {
                 this.x += Math.abs(this.amongus.xA - this.x) / 15;
         }
 
-        if (Math.abs(this.y - (this.amongus.yA - this.game.getWidth() * 2)) > 7) {
-            if (this.y > this.amongus.yA - this.game.getWidth() * 2)
-                this.y -= Math.abs(this.y - (this.amongus.yA - this.game.getWidth() * 2)) / 15;
+        if (Math.abs(this.y - (this.amongus.yA - SizeSquar * 2)) > 7) {
+            if (this.y > this.amongus.yA - SizeSquar * 2)
+                this.y -= Math.abs(this.y - (this.amongus.yA - SizeSquar * 2)) / 15;
             else 
-                this.y += Math.abs(this.y - (this.amongus.yA - this.game.getWidth() * 2)) / 15;
+                this.y += Math.abs(this.y - (this.amongus.yA - SizeSquar * 2)) / 15;
         }
     }
 
     draw() {
-        this.game.context.drawImage(this.ufo, this.x - this.game.getWidth() * 0.75, this.y - this.game.getWidth() * 0.75, this.game.getWidth() * 1.5, this.game.getWidth() * 1.5);
+        this.game.context.drawImage(this.ufo, this.x - SizeSquar * 0.75, this.y - SizeSquar * 0.75, SizeSquar * 1.5, SizeSquar * 1.5);
     }
 }

@@ -32,10 +32,8 @@ freeze_im[0].src="images/VC/vc2.png";
 freeze_im[1] = new Image();
 freeze_im[1].src="images/VC/vc3.png";
 
+SizeSquar = 0;
 
-// let killcooldown = KILLCOOLDOWN / 3;
-// let speedcooldown = SPEEDCOOLDOWN / 3;
-// let freezeCollDown = FREEZECOOLDOWN / 3;
 let killcooldown = 0;
 let speedcooldown = 0;
 let freezeCollDown = 0;
@@ -73,8 +71,8 @@ class game {
             AM[i] = new amongus(this, "Player " + (i + 1));
         }
 
-        xIM2 = this.getWidth() * 2.5;
-        yIM2 = game_H - this.getWidth() * 4.5;
+        xIM2 = SizeSquar * 2.5;
+        yIM2 = game_H - SizeSquar * 4.5;
 
 
         this.loop();
@@ -91,14 +89,14 @@ class game {
                     var x = evt.touches[i].pageX;
                     var y = evt.touches[i].pageY;
 
-                    var Xc = this.getWidth() * 3.5;
-                    var Yc = game_H - this.getWidth() * 3.5;
+                    var Xc = SizeSquar * 3.5;
+                    var Yc = game_H - SizeSquar * 3.5;
 
-                    if ((Xc - x) * (Xc - x) + (Yc - y) * (Yc - y) > 4 * this.getWidth() * this.getWidth()) {
+                    if ((Xc - x) * (Xc - x) + (Yc - y) * (Yc - y) > 4 * SizeSquar * SizeSquar) {
                         var XX = x - Xc;
                         var YY = y - Yc;
                         var HH = Math.sqrt(XX * XX + YY * YY);
-                        var R = 2 * this.getWidth();
+                        var R = 2 * SizeSquar;
                         x = (R * XX) / HH + Xc;
                         y = (R * YY) / HH + Yc;
                     }
@@ -111,8 +109,8 @@ class game {
                     yCh = (y - Yc) / 7;
 
                     if (this.amu.rm == true) {
-                        xIM2 = x - this.getWidth();
-                        yIM2 = y - this.getWidth();
+                        xIM2 = x - SizeSquar;
+                        yIM2 = y - SizeSquar;
                         this.draw();
                     }
                 }
@@ -122,35 +120,35 @@ class game {
         document.addEventListener("touchstart", evt => {
             var x = evt.touches[evt.touches.length - 1].pageX;
             var y = evt.touches[evt.touches.length - 1].pageY;
-            var Xc = this.getWidth() * 3.5;
-            var Yc = game_H - this.getWidth() * 3.5;
+            var Xc = SizeSquar * 3.5;
+            var Yc = game_H - SizeSquar * 3.5;
 
-            if ((Xc - x) * (Xc - x) + (Yc - y) * (Yc - y) <= 9 * this.getWidth() * this.getWidth()) {
+            if ((Xc - x) * (Xc - x) + (Yc - y) * (Yc - y) <= 9 * SizeSquar * SizeSquar) {
                 if (!this.amu.rm) {
                     this.amu.rm = true;
                     iden = evt.touches[evt.touches.length - 1].identifier;
-                    xIM2 = x - this.getWidth();
-                    yIM2 = y - this.getWidth();
+                    xIM2 = x - SizeSquar;
+                    yIM2 = y - SizeSquar;
                     this.draw();
                 }
             }
-            var Xk = game_W - this.getWidth() * 2.5;
-            var Yk = game_H - this.getWidth() * 2.5;
-            if ((Xk - x) * (Xk - x) + (Yk - y) * (Yk - y) <= 6 * this.getWidth() * this.getWidth()) {
+            var Xk = game_W - SizeSquar * 2.5;
+            var Yk = game_H - SizeSquar * 2.5;
+            if ((Xk - x) * (Xk - x) + (Yk - y) * (Yk - y) <= 6 * SizeSquar * SizeSquar) {
                 console.log("Kill");
                 idenKill = evt.touches[evt.touches.length - 1].identifier;
             }
 
-            var Xp = game_W - this.getWidth() * 2.5;
-            var Yp = game_H - this.getWidth() * 7;
-            if ((Xp - x) * (Xp - x) + (Yp - y) * (Yp - y) <= 6 * this.getWidth() * this.getWidth()) {
+            var Xp = game_W - SizeSquar * 2.5;
+            var Yp = game_H - SizeSquar * 7;
+            if ((Xp - x) * (Xp - x) + (Yp - y) * (Yp - y) <= 6 * SizeSquar * SizeSquar) {
                 console.log("speed");
                 idenSpeed = evt.touches[evt.touches.length - 1].identifier;
             }
 
-            var Xf = game_W - this.getWidth() * 2.5;
-            var Yf = game_H - this.getWidth() * 11.5;
-            if ((Xf - x) * (Xf - x) + (Yf - y) * (Yf - y) <= 6 * this.getWidth() * this.getWidth()) {
+            var Xf = game_W - SizeSquar * 2.5;
+            var Yf = game_H - SizeSquar * 11.5;
+            if ((Xf - x) * (Xf - x) + (Yf - y) * (Yf - y) <= 6 * SizeSquar * SizeSquar) {
                 console.log("freeze");
                 idenFreeze = evt.touches[evt.touches.length - 1].identifier;
             }
@@ -164,8 +162,8 @@ class game {
             if (check) {
                 this.amu.rm = false;
                 iden = -111;
-                xIM2 = this.getWidth() * 2.5;
-                yIM2 = game_H - this.getWidth() * 4.5;
+                xIM2 = SizeSquar * 2.5;
+                yIM2 = game_H - SizeSquar * 4.5;
             }
 
             check = true;
@@ -228,9 +226,9 @@ class game {
         document.addEventListener("mousedown", evt => {
             var x = evt.x;
             var y = evt.y;
-            var Xk = game_W - this.getWidth() * 2.5;
-            var Yk = game_H - this.getWidth() * 2.5;
-            if ((Xk - x) * (Xk - x) + (Yk - y) * (Yk - y) <= 6 * this.getWidth() * this.getWidth()) {
+            var Xk = game_W - SizeSquar * 2.5;
+            var Yk = game_H - SizeSquar * 2.5;
+            if ((Xk - x) * (Xk - x) + (Yk - y) * (Yk - y) <= 6 * SizeSquar * SizeSquar) {
                 console.log("Kill");
                 var k = this.checkKill();
                 if (k != -1 && killcooldown <= 0) {
@@ -245,16 +243,16 @@ class game {
                 }
             }
 
-            var Xp = game_W - this.getWidth() * 2.5;
-            var Yp = game_H - this.getWidth() * 7;
-            if ((Xp - x) * (Xp - x) + (Yp - y) * (Yp - y) <= 6 * this.getWidth() * this.getWidth() && speedcooldown <= 0) {
+            var Xp = game_W - SizeSquar * 2.5;
+            var Yp = game_H - SizeSquar * 7;
+            if ((Xp - x) * (Xp - x) + (Yp - y) * (Yp - y) <= 6 * SizeSquar * SizeSquar && speedcooldown <= 0) {
                 xSP = 2;
                 speedcooldown = SPEEDCOOLDOWN;
             }
 
-            var Xf = game_W - this.getWidth() * 2.5;
-            var Yf = game_H - this.getWidth() * 11.5;
-            if ((Xf - x) * (Xf - x) + (Yf - y) * (Yf - y) <= 6 * this.getWidth() * this.getWidth() && freezeCollDown <= 0) {
+            var Xf = game_W - SizeSquar * 2.5;
+            var Yf = game_H - SizeSquar * 11.5;
+            if ((Xf - x) * (Xf - x) + (Yf - y) * (Yf - y) <= 6 * SizeSquar * SizeSquar && freezeCollDown <= 0) {
                 console.log("FREEZE");
                 for (let i = 0; i < N; i++) {
                     AM[i].Auto = false;
@@ -273,21 +271,21 @@ class game {
             switch(key.keyCode) {
                 case 65:
                 case 37:
-                    xCh = -this.getWidth() / 5;
+                    xCh = -SizeSquar / 5;
                     this.amu.direction = 2;
                     break;
                 case 38:
                 case 87:
-                    yCh = -this.getWidth() / 5;
+                    yCh = -SizeSquar / 5;
                     break;
                 case 39:
                 case 68:
-                    xCh = this.getWidth() / 5;
+                    xCh = SizeSquar / 5;
                     this.amu.direction = 1;
                     break;
                 case 40:
                 case 83:
-                    yCh = this.getWidth() / 5;
+                    yCh = SizeSquar / 5;
                     break;
                 default:
                     this.amu.rm2 = false;
@@ -363,9 +361,10 @@ class game {
         game_H = this.canvas.height;
 
         if (this.amu != null && this.amu.rm == false) {
-            xIM2 = this.getWidth() * 2.5;
-            yIM2 = game_H - this.getWidth() * 4.5;
+            xIM2 = SizeSquar * 2.5;
+            yIM2 = game_H - SizeSquar * 4.5;
         }
+        SizeSquar = this.getWidth();
     }
 
     draw() {
@@ -383,29 +382,29 @@ class game {
 
     drawKillcooldown() {
         this.context.fillStyle = "#CC0000";
-        this.context.font = (Math.floor(this.getWidth() * 2.5)) + 'px Calibri';
+        this.context.font = (Math.floor(SizeSquar * 2.5)) + 'px Calibri';
         killcooldown = Math.floor(killcooldown);
         if (killcooldown < 10) 
             killcooldown = "0" + killcooldown;
-        this.context.fillText(killcooldown, game_W - this.getWidth() * 3.8, game_H - this.getWidth() * 1.8);
+        this.context.fillText(killcooldown, game_W - SizeSquar * 3.8, game_H - SizeSquar * 1.8);
     }
 
     drawSpeedcooldown() {
         this.context.fillStyle = "#CC0000";
-        this.context.font = (Math.floor(this.getWidth() * 2.5)) + 'px Calibri';
+        this.context.font = (Math.floor(SizeSquar * 2.5)) + 'px Calibri';
         speedcooldown = Math.floor(speedcooldown);
         if (speedcooldown < 10) 
             speedcooldown = "0" + speedcooldown;
-        this.context.fillText(speedcooldown, game_W - this.getWidth() * 3.8, game_H - this.getWidth() * 6.8);
+        this.context.fillText(speedcooldown, game_W - SizeSquar * 3.8, game_H - SizeSquar * 6.8);
     }
 
     drawFreezeCoolDown() {
         this.context.fillStyle = "#CC0000";
-        this.context.font = (Math.floor(this.getWidth() * 2.5)) + 'px Calibri';
+        this.context.font = (Math.floor(SizeSquar * 2.5)) + 'px Calibri';
         freezeCollDown = Math.floor(freezeCollDown);
         if (freezeCollDown < 10) 
             freezeCollDown = "0" + freezeCollDown;
-        this.context.fillText(freezeCollDown, game_W - this.getWidth() * 3.8, game_H - this.getWidth() * 10.8);
+        this.context.fillText(freezeCollDown, game_W - SizeSquar * 3.8, game_H - SizeSquar * 10.8);
     }
 
     checkKill() {
@@ -417,7 +416,7 @@ class game {
                 index = i;
             }
         }
-        if (m < 7 * this.getWidth())
+        if (m < 7 * SizeSquar)
             return index;       
         return -1;
     }
@@ -425,35 +424,35 @@ class game {
     drawKill() {
         let k = this.checkKill();
         if (k == -1 || killcooldown > 0)
-            this.context.drawImage(kill[0], game_W - this.getWidth() * 4.5, game_H - this.getWidth() * 4.5, this.getWidth() * 4, this.getWidth() * 4);
+            this.context.drawImage(kill[0], game_W - SizeSquar * 4.5, game_H - SizeSquar * 4.5, SizeSquar * 4, SizeSquar * 4);
         else
-            this.context.drawImage(kill[1], game_W - this.getWidth() * 4.5, game_H - this.getWidth() * 4.5, this.getWidth() * 4, this.getWidth() * 4);
+            this.context.drawImage(kill[1], game_W - SizeSquar * 4.5, game_H - SizeSquar * 4.5, SizeSquar * 4, SizeSquar * 4);
         if (killcooldown > 0)
             this.drawKillcooldown();
     }
 
     drawSpeed() {
         if (speedcooldown > 0)
-            this.context.drawImage(speed[0], game_W - this.getWidth() * 4.5, game_H - this.getWidth() * 9, this.getWidth() * 4, this.getWidth() * 4);
+            this.context.drawImage(speed[0], game_W - SizeSquar * 4.5, game_H - SizeSquar * 9, SizeSquar * 4, SizeSquar * 4);
         else 
-            this.context.drawImage(speed[1], game_W - this.getWidth() * 4.5, game_H - this.getWidth() * 9, this.getWidth() * 4, this.getWidth() * 4);
+            this.context.drawImage(speed[1], game_W - SizeSquar * 4.5, game_H - SizeSquar * 9, SizeSquar * 4, SizeSquar * 4);
         if (speedcooldown > 0)
             this.drawSpeedcooldown();
     }
 
     drawFreeze() {
         if (freezeCollDown > 0)
-            this.context.drawImage(freeze_im[0], game_W - this.getWidth() * 4.5, game_H - this.getWidth() * 13.5, this.getWidth() * 4, this.getWidth() * 4);
+            this.context.drawImage(freeze_im[0], game_W - SizeSquar * 4.5, game_H - SizeSquar * 13.5, SizeSquar * 4, SizeSquar * 4);
         else
-            this.context.drawImage(freeze_im[1], game_W - this.getWidth() * 4.5, game_H - this.getWidth() * 13.5, this.getWidth() * 4, this.getWidth() * 4);
+            this.context.drawImage(freeze_im[1], game_W - SizeSquar * 4.5, game_H - SizeSquar * 13.5, SizeSquar * 4, SizeSquar * 4);
         if (freezeCollDown > 0)
             this.drawFreezeCoolDown();
     }
 
 
     drawEcircle() {
-        this.context.drawImage(im, this.getWidth() * 0.5, game_H - this.getWidth() * 6.5, this.getWidth() * 6, this.getWidth() * 6);
-        this.context.drawImage(im2, xIM2, yIM2, this.getWidth() * 2, this.getWidth() * 2);
+        this.context.drawImage(im, SizeSquar * 0.5, game_H - SizeSquar * 6.5, SizeSquar * 6, SizeSquar * 6);
+        this.context.drawImage(im2, xIM2, yIM2, SizeSquar * 2, SizeSquar * 2);
     }
 
     clearScreen() {

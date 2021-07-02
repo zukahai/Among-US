@@ -59,8 +59,8 @@ class amongus{
 
     auto() {
         if (this.time -- <= 0) {
-            this.x1 = this.game.getWidth() * 1 * (Math.random() - Math.random()) / 3;
-            this.y1 = this.game.getWidth() * 1 * (Math.random() - Math.random()) / 3;
+            this.x1 = SizeSquar * 1 * (Math.random() - Math.random()) / 3;
+            this.y1 = SizeSquar * 1 * (Math.random() - Math.random()) / 3;
             if (this.x1 > 0)
                 this.direction = 1;
             else
@@ -93,25 +93,25 @@ class amongus{
 
     drawVC() {
         if (this.alive) {
-            this.game.context.drawImage(this.vc[(Math.floor(count / 10)) % 2], this.xA - this.game.getWidth() * 1.5, this.yA - this.game.getWidth() * 1.5, this.game.getWidth() * 3, this.game.getWidth() * 3);
+            this.game.context.drawImage(this.vc[(Math.floor(count / 10)) % 2], this.xA - SizeSquar * 1.5, this.yA - SizeSquar * 1.5, SizeSquar * 3, SizeSquar * 3);
         }
     }
 
     draw() {
         if (this.alive && this.Vc) {
-            this.game.context.drawImage(this.vc[(Math.floor(count / 10)) % 2], this.xA - this.game.getWidth() * 1.5, this.yA + this.game.getWidth() * 0.4, this.game.getWidth() * 3, this.game.getWidth() * 1.5);
+            this.game.context.drawImage(this.vc[(Math.floor(count / 10)) % 2], this.xA - SizeSquar * 1.5, this.yA + SizeSquar * 0.4, SizeSquar * 3, SizeSquar * 1.5);
         }
         this.game.context.fillStyle = "#0000FF";
-        this.game.context.font = (Math.floor(this.game.getWidth() / 2)) + 'px Calibri';
+        this.game.context.font = (Math.floor(SizeSquar / 2)) + 'px Calibri';
         if (this.alive) {
-            this.game.context.fillText(this.name, this.xA - 1.5 * Math.floor(this.game.getWidth() / 2), this.yA - this.game.getWidth() * 1.5);
+            this.game.context.fillText(this.name, this.xA - 1.5 * Math.floor(SizeSquar / 2), this.yA - SizeSquar * 1.5);
             if (this.rm || this.rm2)
-                this.game.context.drawImage(this.A[count2 % 4 + 1][this.direction], this.xA - this.game.getWidth() * 1.5, this.yA - this.game.getWidth() * 1.5, this.game.getWidth() * 3, this.game.getWidth() * 3);
+                this.game.context.drawImage(this.A[count2 % 4 + 1][this.direction], this.xA - SizeSquar * 1.5, this.yA - SizeSquar * 1.5, SizeSquar * 3, SizeSquar * 3);
             else
-                this.game.context.drawImage(this.A[0][this.direction], this.xA - this.game.getWidth() * 1.5, this.yA - this.game.getWidth() * 1.5, this.game.getWidth() * 3, this.game.getWidth() * 3);
+                this.game.context.drawImage(this.A[0][this.direction], this.xA - SizeSquar * 1.5, this.yA - SizeSquar * 1.5, SizeSquar * 3, SizeSquar * 3);
         } else if (this.timeDie -- > 0) {
-            this.game.context.fillText(this.name, this.xA - 1.5 * Math.floor(this.game.getWidth() / 2), this.yA - this.game.getWidth() / 2);
-            this.game.context.drawImage(this.die, this.xA - this.game.getWidth() * 1.25, this.yA - this.game.getWidth() * 0.5, this.game.getWidth() * 2.5, this.game.getWidth() * 2);
+            this.game.context.fillText(this.name, this.xA - 1.5 * Math.floor(SizeSquar / 2), this.yA - SizeSquar / 2);
+            this.game.context.drawImage(this.die, this.xA - SizeSquar * 1.25, this.yA - SizeSquar * 0.5, SizeSquar * 2.5, SizeSquar * 2);
         }
         
         if (!this.alive && this.timeDie < -200)
